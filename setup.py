@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 
-import ez_setup
-ez_setup.use_setuptools()
+# Please do not assume network connectivity during build.
+# Either work with what's installed, or fail.
+## import ez_setup
+## ez_setup.use_setuptools()
 
 from setuptools import setup, find_packages
 

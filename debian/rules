@@ -1,0 +1,14 @@
+#!/usr/bin/make -f
+# -*- mode: makefile; coding: utf-8 -*-
+# Copyright © 2002,2003 Colin Walters <walters@debian.org>
+
+include /usr/share/cdbs/1/rules/debhelper.mk
+include /usr/share/cdbs/1/class/python-distutils.mk
+
+DEB_DH_ALWAYS_EXCLUDE := .svn:.git:
+DEB_PYTHON_INSTALL_ARGS_ALL += --single-version-externally-managed
+
+clean::
+	find simplejson -name '*.py[co]' -print0 \
+	| xargs -0 rm -f --
+	rm -rf dist simplejson.egg-info

@@ -1,0 +1,5 @@
+simplejson (1.1-1) unstable; urgency=low
+
+  * Initial release
+
+ -- Tommi Virtanen <tv@debian.org>  Sun, 26 Mar 2006 11:58:56 +0300
