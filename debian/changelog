@@ -1,3 +1,15 @@
+simplejson (1.1-1.1) unstable; urgency=low
+
+  * NMU for the new Python Policy transition (Closes: #373380)
+  * debian/control:
+  - build-depend on the newest versions of cdbs, debhelper, and
+    python-setuptools to conform to the new policy
+  - provides policy headers
+  * debian/rules:
+  - install the files to /usr/share/python-support/python-simplejson
+
+ -- Gustavo Noronha Silva <kov@debian.org>  Tue, 20 Jun 2006 07:18:36 -0300
+
 simplejson (1.1-1) unstable; urgency=low
 
   * Initial release

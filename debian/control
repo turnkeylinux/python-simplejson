@@ -3,11 +3,17 @@ Section: python
 Priority: optional
 Maintainer: Tommi Virtanen <tv@debian.org>
 Standards-Version: 3.6.2
-Build-Depends-Indep: cdbs (>= 0.4.23-1.1), debhelper (>= 4.2.0), python-setuptools, python2.3-setuptools, python2.4-setuptools
+Build-Depends: cdbs (>= 0.4.42), debhelper (>= 5.0.37.1), python, python-setuptools (>= 0.6b3-1)
+Build-Depends-Indep: python-all-dev (>= 2.3.5-10), python-support (>= 0.2.3)
+XS-Python-Standards-Version: 0.4
+XS-Python-Version: all, >= 2.3
 
 Package: python-simplejson
 Architecture: all
 Depends: ${python:Depends}
+XB-Python-Version: ${python:Versions}
+Replaces: python2.3-simplejson, python2.4-simplejson
+Conflicts: python2.3-simplejson, python2.4-simplejson
 Description: Simple, fast, extensible JSON encoder/decoder for Python
  simplejson is a simple, fast, complete, correct and extensible JSON
  <http://json.org> encoder and decoder. It is pure Python code with no
@@ -19,41 +25,3 @@ Description: Simple, fast, extensible JSON encoder/decoder for Python
  .
  The decoder can handle incoming JSON strings of any specified encoding
  (UTF-8 by default).
- .
- This is a dummy package that depends on the correct version of
- simplejson for the default version of Python.
-
-Package: python2.3-simplejson
-Architecture: all
-Depends: ${python:Depends}
-Description: Simple, fast, extensible JSON encoder/decoder for Python
- simplejson is a simple, fast, complete, correct and extensible JSON
- <http://json.org> encoder and decoder. It is pure Python code with no
- dependencies.
- .
- The encoder may be subclassed to provide serialization in any kind of
- situation, without any special support by the objects to be serialized
- (somewhat like pickle).
- .
- The decoder can handle incoming JSON strings of any specified encoding
- (UTF-8 by default).
- .
- This version is usable with python2.3
-
-Package: python2.4-simplejson
-Architecture: all
-Depends: ${python:Depends}
-Description: Simple, fast, extensible JSON encoder/decoder for Python
- simplejson is a simple, fast, complete, correct and extensible JSON
- <http://json.org> encoder and decoder. It is pure Python code with
- no dependencies.
- .
- The encoder may be subclassed to provide serialization in any kind of
- situation, without any special support by the objects to be serialized
- (somewhat like pickle).
- .
- The decoder can handle incoming JSON strings of any specified encoding
- (UTF-8 by default).
- .
- This version is usable with python2.4
-
