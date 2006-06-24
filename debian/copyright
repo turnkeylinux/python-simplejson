@@ -1,19 +1,14 @@
 This package was debianized by Tommi Virtanen tv@debian.org on
 Fri, 24 Mar 2006 19:07:30 +0200.
 
-It was originally downloaded from SVN with
-
-  svn co http://divmod.org/svn/Divmod/trunk/Pyflakes Pyflakes
-
 The homepage is at
 
-  http://divmod.org/trac/wiki/DivmodPyflakes
+  http://undefined.org/python/#simplejson
 
 Upstream Authors:
-  Phil Frost
-  Moe Aboulkheir <moe@divmod.com>
+  Bob Ippolito <bob@redivi.com>
 
-Copyright:
+License:
 
 "MIT License"
 

@@ -1,3 +1,12 @@
+simplejson (1.3-0.1) unstable; urgency=low
+
+  * NMU
+  * New upstream release (Closes: #372617)
+  * debian/copyright:
+  - updated to contain the correct information (Closes: #372619)
+
+ -- Gustavo Noronha Silva <kov@debian.org>  Sat, 24 Jun 2006 19:15:44 -0300
+
 simplejson (1.1-1.1) unstable; urgency=low
 
   * NMU for the new Python Policy transition (Closes: #373380)
