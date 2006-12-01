@@ -7,7 +7,7 @@
 
 from setuptools import setup, find_packages
 
-VERSION = '1.3'
+VERSION = '1.4'
 DESCRIPTION = "Simple, fast, extensible JSON encoder/decoder for Python"
 LONG_DESCRIPTION = """
 simplejson is a simple, fast, complete, correct and extensible

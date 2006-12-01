@@ -2,18 +2,18 @@ Source: simplejson
 Section: python
 Priority: optional
 Maintainer: Tommi Virtanen <tv@debian.org>
-Standards-Version: 3.6.2
-Build-Depends: cdbs (>= 0.4.42), debhelper (>= 5.0.37.1), python, python-setuptools (>= 0.6b3-1)
-Build-Depends-Indep: python-all-dev (>= 2.3.5-10), python-support (>= 0.2.3)
+Standards-Version: 3.7.2
+Build-Depends: cdbs (>= 0.4.42), debhelper (>= 5.0.37.1), python, python-setuptools (>= 0.6b3-1), python-support (>= 0.3)
+Build-Depends-Indep: python-all-dev (>= 2.3.5-10)
 XS-Python-Standards-Version: 0.4
-XS-Python-Version: all, >= 2.3
+XS-Python-Version: >= 2.3
 
 Package: python-simplejson
 Architecture: all
 Depends: ${python:Depends}
 XB-Python-Version: ${python:Versions}
-Replaces: python2.3-simplejson, python2.4-simplejson
-Conflicts: python2.3-simplejson, python2.4-simplejson
+Replaces: python2.4-simplejson
+Conflicts: python2.4-simplejson
 Description: Simple, fast, extensible JSON encoder/decoder for Python
  simplejson is a simple, fast, complete, correct and extensible JSON
  <http://json.org> encoder and decoder. It is pure Python code with no
