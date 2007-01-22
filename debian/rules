@@ -1,0 +1,18 @@
+#!/usr/bin/make -f
+
+DEB_PYTHON_SYSTEM := pysupport
+
+include /usr/share/cdbs/1/rules/debhelper.mk
+include /usr/share/cdbs/1/class/python-distutils.mk
+include /usr/share/cdbs/1/rules/simple-patchsys.mk
+
+PYVER=$(shell pyversions -vd)
+DEB_PYTHON_INSTALL_ARGS_ALL += --single-version-externally-managed
+
+binary-post-install/python-simplejson::
+	mv debian/python-simplejson/usr/share/python-support/python-simplejson/simplejson-${DEB_UPSTREAM_VERSION}-py${PYVER}.egg-info \
+	   debian/python-simplejson/usr/share/python-support/python-simplejson/simplejson-${DEB_UPSTREAM_VERSION}.egg-info
+	-rm -rf debian/python-simplejson/usr/lib/
+
+clean::
+	rm -rf dist simplejson.egg-info

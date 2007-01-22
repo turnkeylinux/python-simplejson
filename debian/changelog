@@ -1,0 +1,57 @@
+simplejson (1.5-1) unstable; urgency=low
+
+  * New upstream release
+  * New maintainer: Debian Python Modules Team, thanks Tommi for your work!
+  * Add myself to Uploaders
+  * Acknowledge non-maintainer uploads (Closes: #373380, #372617)
+  * Documentation is now installed as well
+  * Homepage pseudo header added to long description
+  * XS-Python-Standards-Version field removed
+  * XS-Vcs-Svn and XS-Vcs-Browser fields added
+  * Updated versions of required dependencies
+  * debian/rules file simplified
+  * debian/copyright file updated
+  * Patch moved to debian/patches/01_disable_ez_setup.diff
+
+ -- Piotr Ozarowski <ozarow@gmail.com>  Mon, 22 Jan 2007 02:26:34 +0100
+
+simplejson (1.4-0.1) unstable; urgency=low
+
+  * Non-maintainer upload (with maintainer's knowledge)
+  * New upstream release
+  * python-support moved to Build-Depends: and bumped required version to 0.3
+    (Lintian error)
+  * Updated XS-Python-Version: field (Lintian error)
+  * python2.3-simplejson removed from Conflicts: and Replaces:
+    (Python v2.3 is no longer supported in Debian)
+  * Added debian/watch file
+  * Standards-version bumped to 3.7.2 (no changes needed)
+
+ -- Piotr Ozarowski <ozarow@gmail.com>  Sat,  2 Dec 2006 00:09:09 +0100
+
+simplejson (1.3-0.1) unstable; urgency=low
+
+  * NMU
+  * New upstream release (Closes: #372617)
+  * debian/copyright:
+  - updated to contain the correct information (Closes: #372619)
+
+ -- Gustavo Noronha Silva <kov@debian.org>  Sat, 24 Jun 2006 19:15:44 -0300
+
+simplejson (1.1-1.1) unstable; urgency=low
+
+  * NMU for the new Python Policy transition (Closes: #373380)
+  * debian/control:
+  - build-depend on the newest versions of cdbs, debhelper, and
+    python-setuptools to conform to the new policy
+  - provides policy headers
+  * debian/rules:
+  - install the files to /usr/share/python-support/python-simplejson
+
+ -- Gustavo Noronha Silva <kov@debian.org>  Tue, 20 Jun 2006 07:18:36 -0300
+
+simplejson (1.1-1) unstable; urgency=low
+
+  * Initial release
+
+ -- Tommi Virtanen <tv@debian.org>  Sun, 26 Mar 2006 11:58:56 +0300
