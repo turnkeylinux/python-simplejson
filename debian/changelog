@@ -1,3 +1,20 @@
+simplejson (1.5-1) unstable; urgency=low
+
+  * New upstream release
+  * New maintainer: Debian Python Modules Team, thanks Tommi for your work!
+  * Add myself to Uploaders
+  * Acknowledge non-maintainer uploads (Closes: #373380, #372617)
+  * Documentation is now installed as well
+  * Homepage pseudo header added to long description
+  * XS-Python-Standards-Version field removed
+  * XS-Vcs-Svn and XS-Vcs-Browser fields added
+  * Updated versions of required dependencies
+  * debian/rules file simplified
+  * debian/copyright file updated
+  * Patch moved to debian/patches/01_disable_ez_setup.diff
+
+ -- Piotr Ozarowski <ozarow@gmail.com>  Mon, 22 Jan 2007 02:26:34 +0100
+
 simplejson (1.4-0.1) unstable; urgency=low
 
   * Non-maintainer upload (with maintainer's knowledge)

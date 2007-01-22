@@ -1,21 +1,17 @@
 #!/usr/bin/make -f
-# -*- mode: makefile; coding: utf-8 -*-
-# Copyright © 2002,2003 Colin Walters <walters@debian.org>
 
 DEB_PYTHON_SYSTEM := pysupport
 
 include /usr/share/cdbs/1/rules/debhelper.mk
 include /usr/share/cdbs/1/class/python-distutils.mk
+include /usr/share/cdbs/1/rules/simple-patchsys.mk
 
-UPSTREAM_VERSION=$(shell dpkg-parsechangelog | grep ^Version: | cut -d ' ' -f 2 | cut -d '-' -f 1)
-PYVER=$(shell pyversions -vr 'current')
-
-DEB_DH_ALWAYS_EXCLUDE := .svn:.git:
-DEB_PYTHON_INSTALL_ARGS_ALL += --single-version-externally-managed --install-lib usr/share/python-support/python-simplejson
+PYVER=$(shell pyversions -vd)
+DEB_PYTHON_INSTALL_ARGS_ALL += --single-version-externally-managed
 
 binary-post-install/python-simplejson::
-	mv debian/python-simplejson/usr/share/python-support/python-simplejson/simplejson-${UPSTREAM_VERSION}-py${PYVER}.egg-info \
-	   debian/python-simplejson/usr/share/python-support/python-simplejson/simplejson-${UPSTREAM_VERSION}.egg-info
+	mv debian/python-simplejson/usr/share/python-support/python-simplejson/simplejson-${DEB_UPSTREAM_VERSION}-py${PYVER}.egg-info \
+	   debian/python-simplejson/usr/share/python-support/python-simplejson/simplejson-${DEB_UPSTREAM_VERSION}.egg-info
 	-rm -rf debian/python-simplejson/usr/lib/
 
 clean::
