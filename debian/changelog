@@ -1,3 +1,9 @@
+simplejson (1.6-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Piotr Ozarowski <ozarow@gmail.com>  Sun,  4 Mar 2007 16:15:08 +0100
+
 simplejson (1.5-1) unstable; urgency=low
 
   * New upstream release
