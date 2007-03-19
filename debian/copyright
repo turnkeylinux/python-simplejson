@@ -34,7 +34,7 @@ License: MIT License
 
 
 The Debian packaging is (C) 2006 Tommi Virtanen <tv@debian.org> and 
-2007 Piotr Ożarowski <ozarow@gmail.com> - it is licensed under the GPL.
+2007 Piotr Ożarowski <piotr@debian.org> - it is licensed under the GPL.
 
 On Debian systems, the complete text of the GNU General Public License
 can be found in `/usr/share/common-licenses/GPL'.

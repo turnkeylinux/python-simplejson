@@ -6,6 +6,6 @@
 -import ez_setup
 -ez_setup.use_setuptools()
 -
- from setuptools import setup, find_packages
+ from setuptools import setup, find_packages, Extension, Feature
  
- VERSION = '1.5'
+ VERSION = '1.7'
