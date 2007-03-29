@@ -35,6 +35,7 @@ simplejson.egg-info/top_level.txt
 simplejson.egg-info/zip-safe
 simplejson/tests/__init__.py
 simplejson/tests/test_attacks.py
+simplejson/tests/test_dump.py
 simplejson/tests/test_fail.py
 simplejson/tests/test_indent.py
 simplejson/tests/test_pass1.py
