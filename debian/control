@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Debian Python Modules Team <python-modules-team@lists.alioth.debian.org>
 Uploaders: Piotr Ożarowski <piotr@debian.org>
 Standards-Version: 3.7.2
-Build-Depends: cdbs (>= 0.4.42), debhelper (>= 5.0.38), python (>= 2.3.5-11), python-setuptools (>= 0.6b3-1), python-support (>= 0.3)
+Build-Depends: cdbs (>= 0.4.42), debhelper (>= 5.0.38), python (>= 2.3.5-11), python-setuptools (>= 0.6b3-1), python-support (>= 0.6.4)
 Build-Depends-Indep: python-all-dev
 XS-Python-Version: >= 2.3
 XS-Vcs-Svn: svn://svn.debian.org/python-modules/packages/simplejson/trunk/
