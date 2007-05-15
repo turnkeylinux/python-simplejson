@@ -1,10 +1,10 @@
-simplejson (1.7.1-2) UNRELEASED; urgency=low
+simplejson (1.7.1-2) unstable; urgency=low
 
   * New python-support handles egg's directory name correctly
     - bump python-support required version
-    - remove mv part from debian/rules
+    - remove mv part from debian/rules (Closes: #423982)
 
- -- Piotr Ożarowski <piotr@debian.org>  Sun, 13 May 2007 00:27:03 +0200
+ -- Piotr Ożarowski <piotr@debian.org>  Tue, 15 May 2007 19:40:49 +0200
 
 simplejson (1.7.1-1) unstable; urgency=low
 
