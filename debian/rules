@@ -1,15 +1,64 @@
 #!/usr/bin/make -f
+#export DH_VERBOSE=1
 
-DEB_PYTHON_SYSTEM := pysupport
+include /usr/share/quilt/quilt.make
 
-include /usr/share/cdbs/1/rules/debhelper.mk
-include /usr/share/cdbs/1/class/python-distutils.mk
-include /usr/share/cdbs/1/rules/simple-patchsys.mk
+PACKAGE_NAME=python-simplejson
+MODULE_NAME=simplejson
 
-DEB_PYTHON_INSTALL_ARGS_ALL += --single-version-externally-managed
+PYVERS=$(shell pyversions -vr)
+DEB_UPSTREAM_VERSION=$(shell dpkg-parsechangelog \
+	| sed -rne 's,^Version: ([^-]+).*,\1,p')
 
-binary-post-install/python-simplejson::
-	-rm -rf debian/python-simplejson/usr/lib/
+ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
+  CFLAGS += -O0
+else
+  CFLAGS += -O2
+endif
+export CFLAGS
 
-clean::
-	rm -rf dist simplejson.egg-info
+clean: unpatch
+	dh_testdir
+	dh_testroot
+	-rm -rf dist build build-stamp build-ext-*
+	-rm -rf $(MODULE_NAME).egg-info
+	find . -name '*\.py[co]' -delete
+	-rm install-stamp install-ext-*
+	dh_clean
+
+build: patch build-stamp
+build-stamp: $(PYVERS:%=build-ext-%)
+	touch $@
+build-ext-%:
+	dh_testdir
+	python$* setup.py build
+	touch $@
+
+install: install-stamp
+install-stamp: build-stamp $(PYVERS:%=install-ext-%)
+install-ext-%:
+	python$* setup.py install \
+		--root $(CURDIR)/debian/$(PACKAGE_NAME) \
+		--single-version-externally-managed
+
+binary-indep:
+
+binary-arch: build install
+	dh_testdir
+	dh_testroot
+	dh_installchangelogs
+	dh_installdocs
+	dh_installexamples
+	dh_pysupport
+	dh_strip
+	dh_compress -X.py
+	dh_fixperms
+	dh_installdeb
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-indep binary-arch
+
+.PHONY: clean binary-indep binary-arch binary unpatch
