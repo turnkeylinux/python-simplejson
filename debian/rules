@@ -20,11 +20,10 @@ export CFLAGS
 clean: unpatch
 	dh_testdir
 	dh_testroot
-	-rm -rf dist build build-stamp build-ext-*
-	-rm -rf $(MODULE_NAME).egg-info
+	rm -rf dist build build-stamp build-ext-*
+	rm -rf $(MODULE_NAME).egg-info
 	find . -name '*\.py[co]' -delete
-	-rm install-stamp install-ext-*
-	dh_clean
+	dh_clean install-stamp install-ext-*
 
 build: patch build-stamp
 build-stamp: $(PYVERS:%=build-ext-%)
@@ -36,10 +35,12 @@ build-ext-%:
 
 install: install-stamp
 install-stamp: build-stamp $(PYVERS:%=install-ext-%)
+	touch $@
 install-ext-%:
 	python$* setup.py install \
 		--root $(CURDIR)/debian/$(PACKAGE_NAME) \
 		--single-version-externally-managed
+	touch $@
 
 binary-indep:
 
@@ -57,7 +58,7 @@ binary-arch: build install
 	dh_shlibdeps
 	dh_gencontrol
 	dh_md5sums
-	dh_builddeb
+	dh_builddeb -- -Z bzip2
 
 binary: binary-indep binary-arch
 

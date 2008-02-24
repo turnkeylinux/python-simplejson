@@ -1,3 +1,13 @@
+simplejson (1.7.4-1) unstable; urgency=low
+
+  * New upstream release
+  * disable_ez_setup patch updated
+  * Strip the "-1" from quilt's and setuptools' required build versions
+  * Compress binary package with bzip2
+  * Standards-version bumped to 3.7.3 (no changes needed)
+
+ -- Piotr Ożarowski <piotr@debian.org>  Sun, 24 Feb 2008 15:26:50 +0100
+
 simplejson (1.7.3-1) unstable; urgency=low
 
   * New upstream release
