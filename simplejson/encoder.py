@@ -7,11 +7,9 @@ try:
 except ImportError:
     _speedups = None
 
-ESCAPE = re.compile(r'[\x00-\x19\\"\b\f\n\r\t]')
+ESCAPE = re.compile(r'[\x00-\x1f\\"\b\f\n\r\t]')
 ESCAPE_ASCII = re.compile(r'([\\"/]|[^\ -~])')
 ESCAPE_DCT = {
-    # escape all forward slashes to prevent </script> attack
-    '/': '\\/',
     '\\': '\\\\',
     '"': '\\"',
     '\b': '\\b',
@@ -25,6 +23,7 @@ for i in range(0x20):
 
 # assume this produces an infinity on all machines (probably not guaranteed)
 INFINITY = float('1e66666')
+FLOAT_REPR = repr
 
 def floatstr(o, allow_nan=True):
     # Check for specials.  Note that this type of test is processor- and/or
@@ -37,7 +36,7 @@ def floatstr(o, allow_nan=True):
     elif o == -INFINITY:
         text = '-Infinity'
     else:
-        return str(o)
+        return FLOAT_REPR(o)
 
     if not allow_nan:
         raise ValueError("Out of range float values are not JSON compliant: %r"
@@ -111,7 +110,7 @@ class JSONEncoder(object):
     key_separator = ': '
     def __init__(self, skipkeys=False, ensure_ascii=True,
             check_circular=True, allow_nan=True, sort_keys=False,
-            indent=None, separators=None, encoding='utf-8'):
+            indent=None, separators=None, encoding='utf-8', default=None):
         """
         Constructor for JSONEncoder, with sensible defaults.
 
@@ -146,6 +145,10 @@ class JSONEncoder(object):
         tuple. The default is (', ', ': '). To get the most compact JSON
         representation you should specify (',', ':') to eliminate whitespace.
 
+        If specified, default is a function that gets called for objects
+        that can't otherwise be serialized. It should return a JSON encodable
+        version of the object or raise a ``TypeError``.
+
         If encoding is not None, then all input strings will be
         transformed into unicode using that encoding prior to JSON-encoding. 
         The default is UTF-8.
@@ -160,6 +163,8 @@ class JSONEncoder(object):
         self.current_indent_level = 0
         if separators is not None:
             self.item_separator, self.key_separator = separators
+        if default is not None:
+            self.default = default
         self.encoding = encoding
 
     def _newline_indent(self):
