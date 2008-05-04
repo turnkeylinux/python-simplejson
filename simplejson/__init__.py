@@ -67,7 +67,7 @@ Specializing JSON object decoding::
     (1+2j)
     >>> import decimal
     >>> simplejson.loads('1.1', parse_float=decimal.Decimal)
-    decimal.Decimal(1.1)
+    Decimal("1.1")
 
 Extending JSONEncoder::
     
@@ -99,7 +99,7 @@ pretty-print::
 Note that the JSON produced by this module's default settings
 is a subset of YAML, so it may be used as a serializer for that as well.
 """
-__version__ = '1.8.1'
+__version__ = '1.9.1'
 __all__ = [
     'dump', 'dumps', 'load', 'loads',
     'JSONDecoder', 'JSONEncoder',
@@ -240,7 +240,9 @@ def dumps(obj, skipkeys=False, ensure_ascii=True, check_circular=True,
         separators=separators, encoding=encoding, default=default,
         **kw).encode(obj)
 
+
 _default_decoder = JSONDecoder(encoding=None, object_hook=None)
+
 
 def load(fp, encoding=None, cls=None, object_hook=None, parse_float=None,
         parse_int=None, parse_constant=None, **kw):
@@ -267,6 +269,7 @@ def load(fp, encoding=None, cls=None, object_hook=None, parse_float=None,
         encoding=encoding, cls=cls, object_hook=object_hook,
         parse_float=parse_float, parse_int=parse_int,
         parse_constant=parse_constant, **kw)
+
 
 def loads(s, encoding=None, cls=None, object_hook=None, parse_float=None,
         parse_int=None, parse_constant=None, **kw):
@@ -318,9 +321,11 @@ def loads(s, encoding=None, cls=None, object_hook=None, parse_float=None,
         kw['parse_constant'] = parse_constant
     return cls(encoding=encoding, **kw).decode(s)
 
+
 #
 # Compatibility cruft from other libraries
 #
+
 
 def decode(s):
     """
@@ -331,6 +336,7 @@ def decode(s):
         DeprecationWarning)
     return loads(s)
 
+
 def encode(obj):
     """
     demjson, python-cjson compatibility hook. Use dumps(s) instead.
@@ -339,6 +345,7 @@ def encode(obj):
     warnings.warn("simplejson.dumps(s) should be used instead of encode(s)",
         DeprecationWarning)
     return dumps(obj)
+
 
 def read(s):
     """
@@ -350,6 +357,7 @@ def read(s):
         DeprecationWarning)
     return loads(s)
 
+
 def write(obj):
     """
     jsonlib, JsonUtils, python-json, json-py API compatibility hook.
@@ -360,10 +368,12 @@ def write(obj):
         DeprecationWarning)
     return dumps(obj)
 
+
 #
 # Pretty printer:
 #     curl http://mochikit.com/examples/ajax_tables/domains.json | python -msimplejson
 #
+
 
 def main():
     import sys
@@ -384,6 +394,7 @@ def main():
         raise SystemExit(e)
     dump(obj, outfile, sort_keys=True, indent=4)
     outfile.write('\n')
+
 
 if __name__ == '__main__':
     main()

@@ -6,9 +6,9 @@ import sys
 
 from simplejson.scanner import Scanner, pattern
 try:
-    from simplejson import _speedups
-except:
-    _speedups = None
+    from simplejson._speedups import scanstring as c_scanstring
+except ImportError:
+    pass
 
 FLAGS = re.VERBOSE | re.MULTILINE | re.DOTALL
 
@@ -23,6 +23,7 @@ def _floatconstants():
 
 NaN, PosInf, NegInf = _floatconstants()
 
+
 def linecol(doc, pos):
     lineno = doc.count('\n', 0, pos) + 1
     if lineno == 1:
@@ -31,6 +32,7 @@ def linecol(doc, pos):
         colno = pos - doc.rindex('\n', 0, pos)
     return lineno, colno
 
+
 def errmsg(msg, doc, pos, end=None):
     lineno, colno = linecol(doc, pos)
     if end is None:
@@ -38,6 +40,7 @@ def errmsg(msg, doc, pos, end=None):
     endlineno, endcolno = linecol(doc, end)
     return '%s: line %d column %d - line %d column %d (char %d - %d)' % (
         msg, lineno, colno, endlineno, endcolno, pos, end)
+
 
 _CONSTANTS = {
     '-Infinity': NegInf,
@@ -58,6 +61,7 @@ def JSONConstant(match, context, c=_CONSTANTS):
     return rval, None
 pattern('(-?Infinity|NaN|true|false|null)')(JSONConstant)
 
+
 def JSONNumber(match, context):
     match = JSONNumber.regex.match(match.string, *match.span())
     integer, frac, exp = match.groups()
@@ -70,7 +74,8 @@ def JSONNumber(match, context):
     return res, None
 pattern(r'(-?(?:0|[1-9]\d*))(\.\d+)?([eE][-+]?\d+)?')(JSONNumber)
 
-STRINGCHUNK = re.compile(r'(.*?)(["\\])', FLAGS)
+
+STRINGCHUNK = re.compile(r'(.*?)(["\\\x00-\x1f])', FLAGS)
 BACKSLASH = {
     '"': u'"', '\\': u'\\', '/': u'/',
     'b': u'\b', 'f': u'\f', 'n': u'\n', 'r': u'\r', 't': u'\t',
@@ -78,7 +83,7 @@ BACKSLASH = {
 
 DEFAULT_ENCODING = "utf-8"
 
-def scanstring(s, end, encoding=None, _b=BACKSLASH, _m=STRINGCHUNK.match):
+def py_scanstring(s, end, encoding=None, strict=True, _b=BACKSLASH, _m=STRINGCHUNK.match):
     if encoding is None:
         encoding = DEFAULT_ENCODING
     chunks = []
@@ -97,6 +102,12 @@ def scanstring(s, end, encoding=None, _b=BACKSLASH, _m=STRINGCHUNK.match):
             _append(content)
         if terminator == '"':
             break
+        elif terminator != '\\':
+            if strict:
+                raise ValueError(errmsg("Invalid control character %r at", s, end))
+            else:
+                _append(terminator)
+                continue
         try:
             esc = s[end]
         except IndexError:
@@ -134,14 +145,19 @@ def scanstring(s, end, encoding=None, _b=BACKSLASH, _m=STRINGCHUNK.match):
         _append(m)
     return u''.join(chunks), end
 
+
 # Use speedup
-if _speedups is not None:
-    scanstring = _speedups.scanstring
+try:
+    scanstring = c_scanstring
+except NameError:
+    scanstring = py_scanstring
 
 def JSONString(match, context):
     encoding = getattr(context, 'encoding', None)
-    return scanstring(match.string, match.end(), encoding)
+    strict = getattr(context, 'strict', True)
+    return scanstring(match.string, match.end(), encoding, strict)
 pattern(r'"')(JSONString)
+
 
 WHITESPACE = re.compile(r'\s*', FLAGS)
 
@@ -150,16 +166,17 @@ def JSONObject(match, context, _w=WHITESPACE.match):
     s = match.string
     end = _w(s, match.end()).end()
     nextchar = s[end:end + 1]
-    # trivial empty object
+    # Trivial empty object
     if nextchar == '}':
         return pairs, end + 1
     if nextchar != '"':
         raise ValueError(errmsg("Expecting property name", s, end))
     end += 1
     encoding = getattr(context, 'encoding', None)
+    strict = getattr(context, 'strict', True)
     iterscan = JSONScanner.iterscan
     while True:
-        key, end = scanstring(s, end, encoding)
+        key, end = scanstring(s, end, encoding, strict)
         end = _w(s, end).end()
         if s[end:end + 1] != ':':
             raise ValueError(errmsg("Expecting : delimiter", s, end))
@@ -186,12 +203,13 @@ def JSONObject(match, context, _w=WHITESPACE.match):
         pairs = object_hook(pairs)
     return pairs, end
 pattern(r'{')(JSONObject)
-            
+
+
 def JSONArray(match, context, _w=WHITESPACE.match):
     values = []
     s = match.string
     end = _w(s, match.end()).end()
-    # look-ahead for trivial empty array
+    # Look-ahead for trivial empty array
     nextchar = s[end:end + 1]
     if nextchar == ']':
         return values, end + 1
@@ -212,7 +230,8 @@ def JSONArray(match, context, _w=WHITESPACE.match):
         end = _w(s, end).end()
     return values, end
 pattern(r'\[')(JSONArray)
- 
+
+
 ANYTHING = [
     JSONObject,
     JSONArray,
@@ -222,6 +241,7 @@ ANYTHING = [
 ]
 
 JSONScanner = Scanner(ANYTHING)
+
 
 class JSONDecoder(object):
     """
@@ -257,7 +277,7 @@ class JSONDecoder(object):
     __all__ = ['__init__', 'decode', 'raw_decode']
 
     def __init__(self, encoding=None, object_hook=None, parse_float=None,
-            parse_int=None, parse_constant=None):
+            parse_int=None, parse_constant=None, strict=True):
         """
         ``encoding`` determines the encoding used to interpret any ``str``
         objects decoded by this instance (utf-8 by default).  It has no
@@ -291,6 +311,7 @@ class JSONDecoder(object):
         self.parse_float = parse_float
         self.parse_int = parse_int
         self.parse_constant = parse_constant
+        self.strict = strict
 
     def decode(self, s, _w=WHITESPACE.match):
         """
