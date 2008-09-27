@@ -1,3 +1,11 @@
+simplejson (2.0.0-1) experimental; urgency=low
+
+  * New upstream release (upload to experimental due to Lenny freeze)
+  * Remove embedded copy of jquery.js and recommend libjs-jquery package
+  * Don't compress .json and .js files in docs directory
+
+ -- Piotr Ożarowski <piotr@debian.org>  Sat, 27 Sep 2008 20:25:19 +0200
+
 simplejson (1.9.3-1) experimental; urgency=low
 
   * New upstream release

@@ -7,8 +7,6 @@ PACKAGE_NAME=python-simplejson
 MODULE_NAME=simplejson
 
 PYVERS=$(shell pyversions -vr)
-DEB_UPSTREAM_VERSION=$(shell dpkg-parsechangelog \
-	| sed -rne 's,^Version: ([^-]+).*,\1,p')
 
 ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
   CFLAGS += -O0
@@ -49,10 +47,11 @@ binary-arch: build install
 	dh_testroot
 	dh_installchangelogs
 	dh_installdocs
-	dh_installexamples
+	dh_link /usr/share/javascript/jquery/jquery.js \
+		/usr/share/doc/python-simplejson/docs/_static/jquery.js
 	dh_pysupport
 	dh_strip
-	dh_compress -X.py
+	dh_compress -X.py -X.json -X.js
 	dh_fixperms
 	dh_installdeb
 	dh_shlibdeps

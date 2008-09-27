@@ -14,6 +14,7 @@ Package: python-simplejson
 Architecture: any
 Depends: ${python:Depends}, ${shlibs:Depends}
 XB-Python-Version: ${python:Versions}
+Recommends: libjs-jquery
 Provides: ${python:Provides}
 Replaces: python2.4-simplejson
 Conflicts: python2.4-simplejson
