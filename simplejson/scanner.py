@@ -1,62 +1,66 @@
 """
-Iterator based sre token scanner
+JSON token scanner
 """
 import re
-from re import VERBOSE, MULTILINE, DOTALL
-import sre_parse
-import sre_compile
-import sre_constants
-from sre_constants import BRANCH, SUBPATTERN
+try:
+    from simplejson._speedups import make_scanner as c_make_scanner
+except ImportError:
+    c_make_scanner = None
 
-__all__ = ['make_scanner', 'pattern']
+__all__ = ['make_scanner']
 
-FLAGS = (VERBOSE | MULTILINE | DOTALL)
+NUMBER_RE = re.compile(
+    r'(-?(?:0|[1-9]\d*))(\.\d+)?([eE][-+]?\d+)?',
+    (re.VERBOSE | re.MULTILINE | re.DOTALL))
 
-def make_scanner(lexicon, flags=FLAGS):
-    actions = [None]
-    # Combine phrases into a compound pattern
-    s = sre_parse.Pattern()
-    s.flags = flags
-    charpatterns = {}
-    p = []
-    idx = 0
-    for token in lexicon:
-        if token.pattern in (r'\[', r'{', r'"'):
-            charpatterns[token.pattern[-1]] = token
-        idx += 1
-        phrase = token.pattern
+def py_make_scanner(context):
+    parse_object = context.parse_object
+    parse_array = context.parse_array
+    parse_string = context.parse_string
+    match_number = NUMBER_RE.match
+    encoding = context.encoding
+    strict = context.strict
+    parse_float = context.parse_float
+    parse_int = context.parse_int
+    parse_constant = context.parse_constant
+    object_hook = context.object_hook
+
+    def _scan_once(string, idx):
         try:
-            subpattern = sre_parse.SubPattern(s,
-                [(SUBPATTERN, (idx, sre_parse.parse(phrase, flags)))])
-        except sre_constants.error:
-            raise
-        p.append(subpattern)
-        actions.append(token)
-
-    s.groups = len(p) + 1 # NOTE(guido): Added to make SRE validation work
-    p = sre_parse.SubPattern(s, [(BRANCH, (None, p))])
-    scanner = sre_compile.compile(p).scanner
-
-    def _scan_once(string, idx=0, context=None):
-        try:
-            action = charpatterns[string[idx]]
-        except KeyError:
-            pass
+            nextchar = string[idx]
         except IndexError:
             raise StopIteration
-        else:
-            return action((string, idx + 1), context)
         
-        m = scanner(string, idx).match()
-        if m is None or m.end() == idx:
+        if nextchar == '"':
+            return parse_string(string, idx + 1, encoding, strict)
+        elif nextchar == '{':
+            return parse_object((string, idx + 1), encoding, strict, _scan_once, object_hook)
+        elif nextchar == '[':
+            return parse_array((string, idx + 1), _scan_once)
+        elif nextchar == 'n' and string[idx:idx + 4] == 'null':
+            return None, idx + 4
+        elif nextchar == 't' and string[idx:idx + 4] == 'true':
+            return True, idx + 4
+        elif nextchar == 'f' and string[idx:idx + 5] == 'false':
+            return False, idx + 5
+        
+        m = match_number(string, idx)
+        if m is not None:
+            integer, frac, exp = m.groups()
+            if frac or exp:
+                res = parse_float(integer + (frac or '') + (exp or ''))
+            else:
+                res = parse_int(integer)
+            return res, m.end()
+        elif nextchar == 'N' and string[idx:idx + 3] == 'NaN':
+            return parse_constant('NaN'), idx + 3
+        elif nextchar == 'I' and string[idx:idx + 8] == 'Infinity':
+            return parse_constant('Infinity'), idx + 8
+        elif nextchar == '-' and string[idx:idx + 9] == '-Infinity':
+            return parse_constant('-Infinity'), idx + 9
+        else:
             raise StopIteration
-        return actions[m.lastindex](m, context)
     
     return _scan_once
 
-def pattern(pattern, flags=FLAGS):
-    def decorator(fn):
-        fn.pattern = pattern
-        fn.regex = re.compile(pattern, flags)
-        return fn
-    return decorator
+make_scanner = c_make_scanner or py_make_scanner

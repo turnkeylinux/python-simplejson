@@ -1,6 +1,6 @@
 Metadata-Version: 1.0
 Name: simplejson
-Version: 1.9.3
+Version: 2.0.0
 Summary: Simple, fast, extensible JSON encoder/decoder for Python
 Home-page: http://undefined.org/python/#simplejson
 Author: Bob Ippolito
