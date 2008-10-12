@@ -1,3 +1,9 @@
+simplejson (2.0.3-1) experimental; urgency=low
+
+  * New upstream release (upload to experimental due to Lenny freeze)
+
+ -- Piotr Ożarowski <piotr@debian.org>  Sun, 12 Oct 2008 15:06:57 +0200
+
 simplejson (2.0.2-1) experimental; urgency=low
 
   * New upstream release (upload to experimental due to Lenny freeze)
