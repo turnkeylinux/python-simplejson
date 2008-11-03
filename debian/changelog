@@ -1,3 +1,10 @@
+simplejson (2.0.4-2) UNRELEASED; urgency=low
+
+  * debian/control
+    - switch Vcs-Browser field to viewsvn
+
+ -- Sandro Tosi <morph@debian.org>  Mon, 03 Nov 2008 22:16:29 +0100
+
 simplejson (2.0.4-1) experimental; urgency=low
 
   * New upstream release (upload to experimental due to Lenny freeze)
