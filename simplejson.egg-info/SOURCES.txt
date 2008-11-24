@@ -37,6 +37,7 @@ simplejson.egg-info/dependency_links.txt
 simplejson.egg-info/top_level.txt
 simplejson.egg-info/zip-safe
 simplejson/tests/__init__.py
+simplejson/tests/test_check_circular.py
 simplejson/tests/test_decode.py
 simplejson/tests/test_default.py
 simplejson/tests/test_dump.py
