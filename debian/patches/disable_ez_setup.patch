@@ -1,10 +1,14 @@
---- simplejson-1.7.4.orig/setup.py.orig	2008-02-24 20:39:05.000000000 +0100
-+++ simplejson-1.7.4/setup.py	2008-02-24 20:39:42.000000000 +0100
+this patch disables ez_setup (dpkg handles dependencies a lot better)
+Index: simplejson-2.0.6/setup.py
+===================================================================
+--- simplejson-2.0.6.orig/setup.py
++++ simplejson-2.0.6/setup.py
 @@ -1,17 +1,17 @@
  #!/usr/bin/env python
  
 -from ez_setup import use_setuptools
--import sys
++#from ez_setup import use_setuptools
+ import sys
 -if 'cygwin' in sys.platform.lower():
 -   min_version='0.6c6'
 -else:
@@ -15,8 +19,6 @@
 -    # If a non-local ez_setup is already imported, it won't be able to
 -    # use the min_version kwarg and will bail with TypeError
 -    use_setuptools()
-+#from ez_setup import use_setuptools
-+#import sys
 +#if 'cygwin' in sys.platform.lower():
 +#   min_version='0.6c6'
 +#else:
