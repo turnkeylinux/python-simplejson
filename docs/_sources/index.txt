@@ -13,11 +13,11 @@ syntax (ECMA-262 3rd edition) used as a lightweight data interchange format.
 :mod:`marshal` and :mod:`pickle` modules. It is the externally maintained
 version of the :mod:`json` library contained in Python 2.6, but maintains
 compatibility with Python 2.4 and Python 2.5 and (currently) has
-significant performance advantages, even without using the optional C 
+significant performance advantages, even without using the optional C
 extension for speedups.
 
 Encoding basic Python object hierarchies::
-    
+
     >>> import simplejson as json
     >>> json.dumps(['foo', {'bar': ('baz', None, 1.0, 2)}])
     '["foo", {"bar": ["baz", null, 1.0, 2]}]'
@@ -44,14 +44,15 @@ Compact encoding::
 Pretty printing::
 
     >>> import simplejson as json
-    >>> print json.dumps({'4': 5, '6': 7}, sort_keys=True, indent=4)
+    >>> s = json.dumps({'4': 5, '6': 7}, sort_keys=True, indent=4)
+    >>> print '\n'.join([l.rstrip() for l in  s.splitlines()])
     {
-        "4": 5, 
+        "4": 5,
         "6": 7
     }
 
 Decoding JSON::
-    
+
     >>> import simplejson as json
     >>> obj = [u'foo', {u'bar': [u'baz', None, 1.0, 2]}]
     >>> json.loads('["foo", {"bar":["baz", null, 1.0, 2]}]') == obj
@@ -70,7 +71,7 @@ Specializing JSON object decoding::
     ...     if '__complex__' in dct:
     ...         return complex(dct['real'], dct['imag'])
     ...     return dct
-    ... 
+    ...
     >>> json.loads('{"__complex__": true, "real": 1, "imag": 2}',
     ...     object_hook=as_complex)
     (1+2j)
@@ -79,7 +80,7 @@ Specializing JSON object decoding::
     True
 
 Specializing JSON object encoding::
-    
+
     >>> import simplejson as json
     >>> def encode_complex(obj):
     ...     if isinstance(obj, complex):
@@ -92,12 +93,12 @@ Specializing JSON object encoding::
     '[2.0, 1.0]'
     >>> ''.join(json.JSONEncoder(default=encode_complex).iterencode(2 + 1j))
     '[2.0, 1.0]'
-    
+
 
 .. highlight:: none
 
 Using simplejson.tool from the shell to validate and pretty-print::
-    
+
     $ echo '{"json":"obj"}' | python -msimplejson.tool
     {
         "json": "obj"
@@ -107,7 +108,7 @@ Using simplejson.tool from the shell to validate and pretty-print::
 
 .. highlight:: python
 
-.. note:: 
+.. note::
 
    The JSON produced by this module's default settings is a subset of
    YAML, so it may be used as a serializer for that as well.
@@ -156,9 +157,15 @@ Basic Usage
    *default(obj)* is a function that should return a serializable version of
    *obj* or raise :exc:`TypeError`.  The default simply raises :exc:`TypeError`.
 
-   To use a custom :class:`JSONEncoder`` subclass (e.g. one that overrides the
+   To use a custom :class:`JSONEncoder` subclass (e.g. one that overrides the
    :meth:`default` method to serialize additional types), specify it with the
    *cls* kwarg.
+
+    .. note::
+
+        JSON is not a framed protocol so unlike :mod:`pickle` or :mod:`marshal` it
+        does not make sense to serialize more than one JSON document without some
+        container protocol to delimit them.
 
 
 .. function:: dumps(obj[, skipkeys[, ensure_ascii[, check_circular[, allow_nan[, cls[, indent[, separators[, encoding[, default[, **kw]]]]]]]]]])
@@ -171,7 +178,7 @@ Basic Usage
    better performance.
 
 
-.. function load(fp[, encoding[, cls[, object_hook[, parse_float[, parse_int[, parse_constant[, **kw]]]]]]])
+.. function:: load(fp[, encoding[, cls[, object_hook[, parse_float[, parse_int[, parse_constant[, **kw]]]]]]])
 
    Deserialize *fp* (a ``.read()``-supporting file-like object containing a JSON
    document) to a Python object.
@@ -206,8 +213,16 @@ Basic Usage
    kwarg.  Additional keyword arguments will be passed to the constructor of the
    class.
 
+    .. note::
 
-.. function loads(s[, encoding[, cls[, object_hook[, parse_float[, parse_int[, parse_constant[, **kw]]]]]]])
+        :func:`load` will read the rest of the file-like object as a string and
+        then call :func:`loads`. It does not stop at the end of the first valid
+        JSON document it finds and it will raise an error if there is anything
+        other than whitespace after the document. Except for files containing
+        only one JSON document, it is recommended to use :func:`loads`.
+
+
+.. function:: loads(s[, encoding[, cls[, object_hook[, parse_float[, parse_int[, parse_constant[, **kw]]]]]]])
 
    Deserialize *s* (a :class:`str` or :class:`unicode` instance containing a JSON
    document) to a Python object.
@@ -278,6 +293,10 @@ Encoders and decoders
    strings: ``'-Infinity'``, ``'Infinity'``, ``'NaN'``.  This can be used to
    raise an exception if invalid JSON numbers are encountered.
 
+   *strict* controls the parser's behavior when it encounters an invalid
+   control character in a string. The default setting of ``True`` means that
+   unescaped control characters are parse errors, if ``False`` then control
+   characters will be allowed in strings.
 
    .. method:: decode(s)
 
@@ -372,7 +391,7 @@ Encoders and decoders
 
       For example, to support arbitrary iterators, you could implement default
       like this::
-            
+
          def default(self, o):
             try:
                 iterable = iter(o)
@@ -397,9 +416,9 @@ Encoders and decoders
 
       Encode the given object, *o*, and yield each string representation as
       available.  For example::
-            
+
             for chunk in JSONEncoder().iterencode(bigobject):
                 mysocket.write(chunk)
-      
+
       Note that :meth:`encode` has much better performance than
       :meth:`iterencode`.
