@@ -9,7 +9,7 @@ It was downloaded from http://cheeseshop.python.org/packages/source/s/simplejson
 
 Upstream Author: Bob Ippolito <bob@redivi.com>
 
-Copyright: (C) 2006-2007 Bob Ippolito <bob@redivi.com>
+Copyright: (C) 2006-2009 Bob Ippolito <bob@redivi.com>
 
 
 License: MIT License
@@ -33,8 +33,6 @@ License: MIT License
  SOFTWARE.
 
 
-The Debian packaging is (C) 2006 Tommi Virtanen <tv@debian.org> and 
-2007 Piotr Ożarowski <piotr@debian.org> - it is licensed under the GPL.
-
-On Debian systems, the complete text of the GNU General Public License
-can be found in `/usr/share/common-licenses/GPL'.
+The Debian packaging is © 2006 Tommi Virtanen <tv@debian.org> and 
+© 2007-2009 Piotr Ożarowski <piotr@debian.org> - it is licensed under the MIT
+license as well
