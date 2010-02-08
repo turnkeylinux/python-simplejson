@@ -21,14 +21,21 @@ clean: unpatch
 	rm -rf dist build build-stamp build-ext-*
 	rm -rf $(MODULE_NAME).egg-info
 	find . -name '*\.py[co]' -delete
-	dh_clean install-stamp install-ext-*
+	dh_clean install-stamp install-ext-* build-docs
 
-build: patch build-stamp
+build: patch build-stamp build-docs
 build-stamp: $(PYVERS:%=build-ext-%)
 	touch $@
 build-ext-%:
 	dh_testdir
 	python$* setup.py build
+	touch $@
+build-docs:
+	dh_testdir
+	dh_installdirs
+	sphinx-build -N -q -E -b html . \
+	 $(CURDIR)/debian/${PACKAGE_NAME}/usr/share/doc/${PACKAGE_NAME}/
+	rm -rf $(CURDIR)/debian/${PACKAGE_NAME}/usr/share/doc/${PACKAGE_NAME}/.doctrees
 	touch $@
 
 install: install-stamp
@@ -48,7 +55,7 @@ binary-arch: build install
 	dh_installchangelogs
 	dh_installdocs
 	dh_link /usr/share/javascript/jquery/jquery.js \
-		/usr/share/doc/python-simplejson/docs/_static/jquery.js
+		/usr/share/doc/python-simplejson/_static/jquery.js
 	dh_pysupport
 	dh_strip
 	dh_compress -X.py -X.json -X.js
