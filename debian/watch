@@ -1,2 +1,2 @@
 version=3
-http://cheeseshop.python.org/packages/source/s/simplejson/simplejson-(.*)\.tar\.gz debian uupdate
+http://pypi.python.org/packages/source/s/simplejson/simplejson-(.*)\.tar\.gz debian uupdate

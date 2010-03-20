@@ -21,6 +21,7 @@ clean: unpatch
 	rm -rf dist build build-stamp build-ext-*
 	rm -rf $(MODULE_NAME).egg-info
 	find . -name '*\.py[co]' -delete
+	find . -name '\._*' -delete
 	dh_clean install-stamp install-ext-* build-docs
 
 build: patch build-stamp build-docs
