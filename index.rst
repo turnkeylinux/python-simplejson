@@ -12,7 +12,7 @@ syntax (ECMA-262 3rd edition) used as a lightweight data interchange format.
 :mod:`simplejson` exposes an API familiar to users of the standard library
 :mod:`marshal` and :mod:`pickle` modules. It is the externally maintained
 version of the :mod:`json` library contained in Python 2.6, but maintains
-compatibility with Python 2.4 and Python 2.5 and (currently) has
+compatibility with Python 2.5 and (currently) has
 significant performance advantages, even without using the optional C
 extension for speedups.
 
@@ -44,7 +44,7 @@ Compact encoding::
 Pretty printing::
 
     >>> import simplejson as json
-    >>> s = json.dumps({'4': 5, '6': 7}, sort_keys=True, indent=4)
+    >>> s = json.dumps({'4': 5, '6': 7}, sort_keys=True, indent=4 * ' ')
     >>> print '\n'.join([l.rstrip() for l in  s.splitlines()])
     {
         "4": 5,
@@ -62,6 +62,15 @@ Decoding JSON::
     >>> from StringIO import StringIO
     >>> io = StringIO('["streaming API"]')
     >>> json.load(io)[0] == 'streaming API'
+    True
+
+Using Decimal instead of float::
+
+    >>> import simplejson as json
+    >>> from decimal import Decimal
+    >>> json.loads('1.1', use_decimal=True) == Decimal('1.1')
+    True
+    >>> json.dumps(Decimal('1.1'), use_decimal=True) == '1.1'
     True
 
 Specializing JSON object decoding::
@@ -117,7 +126,7 @@ Using :mod:`simplejson.tool` from the shell to validate and pretty-print::
 Basic Usage
 -----------
 
-.. function:: dump(obj, fp[, skipkeys[, ensure_ascii[, check_circular[, allow_nan[, cls[, indent[, separators[, encoding[, default[, **kw]]]]]]]]]])
+.. function:: dump(obj, fp[, skipkeys[, ensure_ascii[, check_circular[, allow_nan[, cls[, indent[, separators[, encoding[, default[, use_decimal[, **kw]]]]]]]]]]])
 
    Serialize *obj* as a JSON formatted stream to *fp* (a ``.write()``-supporting
    file-like object).
@@ -144,26 +153,35 @@ Basic Usage
    If *allow_nan* is true, their JavaScript equivalents will be used
    (``NaN``, ``Infinity``, ``-Infinity``).
 
-   If *indent* is a non-negative integer, then JSON array elements and object
-   members will be pretty-printed with that indent level.  An indent level of 0
-   will only insert newlines.  ``None`` (the default) selects the most compact
-   representation.
+   If *indent* is a string, then JSON array elements and object members
+   will be pretty-printed with a newline followed by that string repeated
+   for each level of nesting. ``None`` (the default) selects the most compact
+   representation without any newlines. For backwards compatibility with
+   versions of simplejson earlier than 2.1.0, an integer is also accepted
+   and is converted to a string with that many spaces.
 
-   If specified, *separators* should be an ``(item_separator, dict_separator)`` 
+   .. versionchanged:: 2.1.0
+      Changed *indent* from an integer number of spaces to a string.
+
+   If specified, *separators* should be an ``(item_separator, dict_separator)``
    tuple.  By default, ``(', ', ': ')`` are used.  To get the most compact JSON
    representation, you should specify ``(',', ':')`` to eliminate whitespace.
 
    *encoding* is the character encoding for str instances, default is
    ``'utf-8'``.
 
-   If specified, *default* should be a function that gets called for objects
-   that can't otherwise be serialized.  It should return a JSON encodable
-   version of the object or raise a :exc:`TypeError`.  If not specified,
-   :exc:`TypeError` is always raised in those cases.
+   *default(obj)* is a function that should return a serializable version of
+   *obj* or raise :exc:`TypeError`.  The default simply raises :exc:`TypeError`.
 
    To use a custom :class:`JSONEncoder` subclass (e.g. one that overrides the
    :meth:`default` method to serialize additional types), specify it with the
    *cls* kwarg.
+   
+   If *use_decimal* is true (default: ``False``) then :class:`decimal.Decimal`
+   will be natively serialized to JSON with full precision.
+   
+   .. versionchanged:: 2.1.0
+      *use_decimal* is new in 2.1.0.
 
     .. note::
 
@@ -172,7 +190,7 @@ Basic Usage
         container protocol to delimit them.
 
 
-.. function:: dumps(obj[, skipkeys[, ensure_ascii[, check_circular[, allow_nan[, cls[, indent[, separators[, encoding[, default[, **kw]]]]]]]]]])
+.. function:: dumps(obj[, skipkeys[, ensure_ascii[, check_circular[, allow_nan[, cls[, indent[, separators[, encoding[, default[, use_decimal[, **kw]]]]]]]]]]])
 
    Serialize *obj* to a JSON formatted :class:`str`.
 
@@ -182,7 +200,7 @@ Basic Usage
    better performance.
 
 
-.. function:: load(fp[, encoding[, cls[, object_hook[, parse_float[, parse_int[, parse_constant[, **kw]]]]]]])
+.. function:: load(fp[, encoding[, cls[, object_hook[, parse_float[, parse_int[, parse_constant[, object_pairs_hook[, use_decimal[, **kw]]]]]]]]])
 
    Deserialize *fp* (a ``.read()``-supporting file-like object containing a JSON
    document) to a Python object.
@@ -194,10 +212,26 @@ Basic Usage
    to a :class:`unicode` object and passed to :func:`loads`. The default
    setting of ``'utf-8'`` is fastest and should be using whenever possible.
 
+   If *fp.read()* returns :class:`str` then decoded JSON strings that contain
+   only ASCII characters may be parsed as :class:`str` for performance and
+   memory reasons. If your code expects only :class:`unicode` the appropriate
+   solution is to wrap fp with a reader as demonstrated above.
+
    *object_hook* is an optional function that will be called with the result of
    any object literal decode (a :class:`dict`).  The return value of
    *object_hook* will be used instead of the :class:`dict`.  This feature can be used
    to implement custom decoders (e.g. JSON-RPC class hinting).
+
+   *object_pairs_hook* is an optional function that will be called with the
+   result of any object literal decode with an ordered list of pairs.  The
+   return value of *object_pairs_hook* will be used instead of the
+   :class:`dict`.  This feature can be used to implement custom decoders that
+   rely on the order that the key and value pairs are decoded (for example,
+   :class:`collections.OrderedDict` will remember the order of insertion). If
+   *object_hook* is also defined, the *object_pairs_hook* takes priority.
+
+   .. versionchanged:: 2.1.0
+      Added support for *object_pairs_hook*.
 
    *parse_float*, if specified, will be called with the string of every JSON
    float to be decoded.  By default, this is equivalent to ``float(num_str)``.
@@ -213,6 +247,13 @@ Basic Usage
    strings: ``'-Infinity'``, ``'Infinity'``, ``'NaN'``.  This can be used to
    raise an exception if invalid JSON numbers are encountered.
 
+   If *use_decimal* is true (default: ``False``) then *parse_float* is set to
+   :class:`decimal.Decimal`. This is a convenience for parity with the
+   :func:`dump` parameter.
+   
+   .. versionchanged:: 2.1.0
+      *use_decimal* is new in 2.1.0.
+
    To use a custom :class:`JSONDecoder` subclass, specify it with the ``cls``
    kwarg.  Additional keyword arguments will be passed to the constructor of the
    class.
@@ -226,7 +267,7 @@ Basic Usage
         only one JSON document, it is recommended to use :func:`loads`.
 
 
-.. function:: loads(s[, encoding[, cls[, object_hook[, parse_float[, parse_int[, parse_constant[, **kw]]]]]]])
+.. function:: loads(s[, encoding[, cls[, object_hook[, parse_float[, parse_int[, parse_constant[, object_pairs_hook[, use_decimal[, **kw]]]]]]]]])
 
    Deserialize *s* (a :class:`str` or :class:`unicode` instance containing a JSON
    document) to a Python object.
@@ -236,13 +277,18 @@ Basic Usage
    specified.  Encodings that are not ASCII based (such as UCS-2) are not
    allowed and should be decoded to :class:`unicode` first.
 
+   If *s* is a :class:`str` then decoded JSON strings that contain
+   only ASCII characters may be parsed as :class:`str` for performance and
+   memory reasons. If your code expects only :class:`unicode` the appropriate
+   solution is decode *s* to :class:`unicode` prior to calling loads.
+
    The other arguments have the same meaning as in :func:`load`.
 
 
 Encoders and decoders
 ---------------------
 
-.. class:: JSONDecoder([encoding[, object_hook[, parse_float[, parse_int[, parse_constant[, strict]]]]]])
+.. class:: JSONDecoder([encoding[, object_hook[, parse_float[, parse_int[, parse_constant[, object_pairs_hook[, strict]]]]]]])
 
    Simple JSON decoder.
 
@@ -278,10 +324,21 @@ Encoders and decoders
    Note that currently only encodings that are a superset of ASCII work, strings
    of other encodings should be passed in as :class:`unicode`.
 
-   *object_hook*, if specified, will be called with the result of every JSON
-   object decoded and its return value will be used in place of the given
-   :class:`dict`.  This can be used to provide custom deserializations (e.g. to
-   support JSON-RPC class hinting).
+   *object_hook* is an optional function that will be called with the result of
+   every JSON object decoded and its return value will be used in place of the
+   given :class:`dict`.  This can be used to provide custom deserializations
+   (e.g. to support JSON-RPC class hinting).
+
+   *object_pairs_hook* is an optional function that will be called with the
+   result of any object literal decode with an ordered list of pairs.  The
+   return value of *object_pairs_hook* will be used instead of the
+   :class:`dict`.  This feature can be used to implement custom decoders that
+   rely on the order that the key and value pairs are decoded (for example,
+   :class:`collections.OrderedDict` will remember the order of insertion). If
+   *object_hook* is also defined, the *object_pairs_hook* takes priority.
+
+   .. versionchanged:: 2.1.0
+      Added support for *object_pairs_hook*.
 
    *parse_float*, if specified, will be called with the string of every JSON
    float to be decoded.  By default, this is equivalent to ``float(num_str)``.
@@ -306,6 +363,12 @@ Encoders and decoders
 
       Return the Python representation of *s* (a :class:`str` or
       :class:`unicode` instance containing a JSON document)
+
+      If *s* is a :class:`str` then decoded JSON strings that contain
+      only ASCII characters may be parsed as :class:`str` for performance and
+      memory reasons. If your code expects only :class:`unicode` the
+      appropriate solution is decode *s* to :class:`unicode` prior to calling
+      decode.
 
    .. method:: raw_decode(s)
 
@@ -365,14 +428,19 @@ Encoders and decoders
    encoders and decoders.  Otherwise, it will be a :exc:`ValueError` to encode
    such floats.
 
-   If *sort_keys* is true (the default), then the output of dictionaries
+   If *sort_keys* is true (not the default), then the output of dictionaries
    will be sorted by key; this is useful for regression tests to ensure that
    JSON serializations can be compared on a day-to-day basis.
 
-   If *indent* is a non-negative integer (it is ``None`` by default), then JSON
-   array elements and object members will be pretty-printed with that indent
-   level.  An indent level of 0 will only insert newlines.  ``None`` is the most
-   compact representation.
+   If *indent* is a string, then JSON array elements and object members
+   will be pretty-printed with a newline followed by that string repeated
+   for each level of nesting. ``None`` (the default) selects the most compact
+   representation without any newlines. For backwards compatibility with
+   versions of simplejson earlier than 2.1.0, an integer is also accepted
+   and is converted to a string with that many spaces.
+
+   .. versionchanged:: 2.1.0
+      Changed *indent* from an integer number of spaces to a string.
 
    If specified, *separators* should be an ``(item_separator, key_separator)``
    tuple.  By default, ``(', ', ': ')`` are used.  To get the most compact JSON
@@ -426,3 +494,10 @@ Encoders and decoders
 
       Note that :meth:`encode` has much better performance than
       :meth:`iterencode`.
+
+.. class:: JSONEncoderForHTML([skipkeys[, ensure_ascii[, check_circular[, allow_nan[, sort_keys[, indent[, separators[, encoding[, default]]]]]]]]])
+
+   Subclass of :class:`JSONEncoder` that escapes &, <, and > for embedding in HTML.
+
+   .. versionchanged:: 2.1.0
+      New in 2.1.0

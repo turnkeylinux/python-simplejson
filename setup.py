@@ -1,24 +1,18 @@
 #!/usr/bin/env python
 
-from ez_setup import use_setuptools
 import sys
-if 'cygwin' in sys.platform.lower():
-   min_version='0.6c6'
-else:
-   min_version='0.6a9'
 try:
-    use_setuptools(min_version=min_version)
-except TypeError:
-    # If a non-local ez_setup is already imported, it won't be able to
-    # use the min_version kwarg and will bail with TypeError
-    use_setuptools()
+    from ez_setup import use_setuptools
+    use_setuptools(version='0.6c11')
+except ImportError:
+    pass
 
 from setuptools import setup, find_packages, Extension, Feature
 from distutils.command.build_ext import build_ext
 from distutils.errors import CCompilerError, DistutilsExecError, \
     DistutilsPlatformError
 
-VERSION = '2.0.9'
+VERSION = '2.1.0'
 DESCRIPTION = "Simple, fast, extensible JSON encoder/decoder for Python"
 LONG_DESCRIPTION = """
 simplejson is a simple, fast, complete, correct and extensible
@@ -38,7 +32,7 @@ The decoder can handle incoming JSON strings of any specified encoding
 """
 
 CLASSIFIERS = filter(None, map(str.strip,
-"""                 
+"""
 Intended Audience :: Developers
 License :: OSI Approved :: MIT License
 Programming Language :: Python
@@ -98,7 +92,7 @@ def run_setup(with_binary):
         license="MIT License",
         packages=find_packages(exclude=['ez_setup']),
         platforms=['any'],
-        test_suite="simplejson.tests",
+        test_suite="simplejson.tests.all_tests_suite",
         zip_safe=True,
         features=features,
         cmdclass={'build_ext': ve_build_ext},
