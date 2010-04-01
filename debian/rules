@@ -1,8 +1,6 @@
 #!/usr/bin/make -f
 #export DH_VERBOSE=1
 
-include /usr/share/quilt/quilt.make
-
 PACKAGE_NAME=python-simplejson
 MODULE_NAME=simplejson
 
@@ -15,7 +13,7 @@ else
 endif
 export CFLAGS
 
-clean: unpatch
+clean:
 	dh_testdir
 	dh_testroot
 	rm -rf dist build build-stamp build-ext-*
@@ -24,7 +22,7 @@ clean: unpatch
 	find . -name '\._*' -delete
 	dh_clean install-stamp install-ext-* build-docs
 
-build: patch build-stamp build-docs
+build: build-stamp build-docs
 build-stamp: $(PYVERS:%=build-ext-%)
 	touch $@
 build-ext-%:
@@ -69,4 +67,4 @@ binary-arch: build install
 
 binary: binary-indep binary-arch
 
-.PHONY: clean binary-indep binary-arch binary unpatch
+.PHONY: clean binary-indep binary-arch binary

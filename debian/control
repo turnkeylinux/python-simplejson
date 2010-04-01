@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Debian Python Modules Team <python-modules-team@lists.alioth.debian.org>
 Uploaders: Piotr Ożarowski <piotr@debian.org>
 Standards-Version: 3.8.4
-Build-Depends: debhelper (>= 5.0.38), quilt (>= 0.40), python-all-dev (>= 2.3.5-11),
+Build-Depends: debhelper (>= 5.0.38), python-all-dev (>= 2.3.5-11),
  python-setuptools (>= 0.6b3), python-support (>= 0.6.4), python-sphinx
 Homepage: http://undefined.org/python/#simplejson
 XS-Python-Version: >= 2.5
@@ -27,3 +27,7 @@ Description: simple, fast, extensible JSON encoder/decoder for Python
  .
  The decoder can handle incoming JSON strings of any specified encoding
  (UTF-8 by default).
+ .
+ simplejson is the externally maintained development version of the json
+ library included with Python 2.6 and Python 3.0, but maintains backwards
+ compatibility with Python 2.5.
