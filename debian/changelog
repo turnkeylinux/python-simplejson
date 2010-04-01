@@ -1,3 +1,12 @@
+simplejson (2.1.1-1) unstable; urgency=low
+
+  * New upstream release
+  * disable_ez_setup.patch removed, ez_install is now used only if setuptools
+    is not available
+  * Note about stdlib's json module added to package's long description
+
+ -- Piotr Ożarowski <piotr@debian.org>  Thu, 01 Apr 2010 23:40:10 +0200
+
 simplejson (2.1.0-1) unstable; urgency=low
 
   * New upstream release
