@@ -20,7 +20,7 @@ clean:
 	rm -rf $(MODULE_NAME).egg-info
 	find . -name '*\.py[co]' -delete
 	find . -name '\._*' -delete
-	dh_clean install-stamp install-ext-* build-docs
+	dh_clean install-stamp install-ext-* build-docs simplejson/_speedups.so
 
 build: build-stamp build-docs
 build-stamp: $(PYVERS:%=build-ext-%)
@@ -36,6 +36,15 @@ build-docs:
 	 $(CURDIR)/debian/${PACKAGE_NAME}/usr/share/doc/${PACKAGE_NAME}/
 	rm -rf $(CURDIR)/debian/${PACKAGE_NAME}/usr/share/doc/${PACKAGE_NAME}/.doctrees
 	touch $@
+
+test: $(PYVERS:%=test-python%)
+# Note that tests are not invoked by default at build time
+# for now as setup.py ignores previously built extension and builds it again as
+# simplejson/_speedups.so
+test-python%: build-ext-%
+ifeq (,$(findstring nocheck,$(DEB_BUILD_OPTIONS)))
+	python$* setup.py test --quiet
+endif
 
 install: install-stamp
 install-stamp: build-stamp $(PYVERS:%=install-ext-%)
@@ -55,7 +64,7 @@ binary-arch: build install
 	dh_installdocs
 	dh_link /usr/share/javascript/jquery/jquery.js \
 		/usr/share/doc/python-simplejson/_static/jquery.js
-	dh_pysupport
+	dh_python2
 	dh_strip
 	dh_compress -X.py -X.json -X.js
 	dh_fixperms
