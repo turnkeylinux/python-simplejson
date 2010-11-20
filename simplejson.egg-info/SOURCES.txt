@@ -49,6 +49,7 @@ simplejson/tests/test_default.py
 simplejson/tests/test_dump.py
 simplejson/tests/test_encode_basestring_ascii.py
 simplejson/tests/test_encode_for_html.py
+simplejson/tests/test_errors.py
 simplejson/tests/test_fail.py
 simplejson/tests/test_float.py
 simplejson/tests/test_indent.py

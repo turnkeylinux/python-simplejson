@@ -1,3 +1,15 @@
+simplejson (2.1.2-1) unstable; urgency=low
+
+  * New upstream release
+  * Switch from dh_pysupport to dh_python2
+  * Source package format changed to 3.0 (quilt)
+  * Add test target in debian/rules to test all supported Python versions
+    (not enabled by default as `setup.py test` ignores previously built
+     extensions)
+  * Standards-version bumped to 3.9.1 (no changes needed)
+
+ -- Piotr Ożarowski <piotr@debian.org>  Sat, 20 Nov 2010 20:05:53 +0100
+
 simplejson (2.1.1-1) unstable; urgency=low
 
   * New upstream release
