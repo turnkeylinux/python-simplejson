@@ -12,25 +12,10 @@ from distutils.command.build_ext import build_ext
 from distutils.errors import CCompilerError, DistutilsExecError, \
     DistutilsPlatformError
 
-VERSION = '2.1.3'
+IS_PYPY = hasattr(sys, 'pypy_translation_info')
+VERSION = '2.1.5'
 DESCRIPTION = "Simple, fast, extensible JSON encoder/decoder for Python"
-LONG_DESCRIPTION = """
-simplejson is a simple, fast, complete, correct and extensible
-JSON <http://json.org> encoder and decoder for Python 2.5+.  It is
-pure Python code with no dependencies, but includes an optional C
-extension for a serious speed boost.
-
-simplejson is the externally maintained development version of the
-json library included with Python 2.6 and Python 3.0, but maintains
-backwards compatibility with Python 2.5.
-
-The encoder may be subclassed to provide serialization in any kind of
-situation, without any special support by the objects to be serialized
-(somewhat like pickle).
-
-The decoder can handle incoming JSON strings of any specified encoding
-(UTF-8 by default).
-"""
+LONG_DESCRIPTION = open('README.rst', 'r').read()
 
 CLASSIFIERS = filter(None, map(str.strip,
 """
@@ -89,7 +74,7 @@ def run_setup(with_binary):
         classifiers=CLASSIFIERS,
         author="Bob Ippolito",
         author_email="bob@redivi.com",
-        url="http://undefined.org/python/#simplejson",
+        url="http://github.com/simplejson/simplejson",
         license="MIT License",
         packages=find_packages(exclude=['ez_setup']),
         platforms=['any'],
@@ -100,7 +85,7 @@ def run_setup(with_binary):
     )
 
 try:
-    run_setup(True)
+    run_setup(not IS_PYPY)
 except BuildFailed:
     BUILD_EXT_WARNING = "WARNING: The C extension could not be compiled, speedups are not enabled."
     print '*' * 75
