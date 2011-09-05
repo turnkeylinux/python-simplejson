@@ -6,13 +6,6 @@ MODULE_NAME=simplejson
 
 PYVERS=$(shell pyversions -vr)
 
-ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
-  CFLAGS += -O0
-else
-  CFLAGS += -O2
-endif
-export CFLAGS
-
 clean:
 	dh_testdir
 	dh_testroot
@@ -22,19 +15,20 @@ clean:
 	find . -name '\._*' -delete
 	dh_clean install-stamp install-ext-* build-docs simplejson/_speedups.so
 
-build: build-stamp build-docs
-build-stamp: $(PYVERS:%=build-ext-%)
+build: build-arch build-indep
+build-arch: $(PYVERS:%=build-ext-%)
 	touch $@
 build-ext-%:
 	dh_testdir
 	python$* setup.py build
 	touch $@
+
+build-indep: build-docs
 build-docs:
 	dh_testdir
 	dh_installdirs
 	sphinx-build -N -q -E -b html . \
 	 $(CURDIR)/debian/${PACKAGE_NAME}/usr/share/doc/${PACKAGE_NAME}/
-	rm -rf $(CURDIR)/debian/${PACKAGE_NAME}/usr/share/doc/${PACKAGE_NAME}/.doctrees
 	touch $@
 
 test: $(PYVERS:%=test-python%)
@@ -47,12 +41,11 @@ ifeq (,$(findstring nocheck,$(DEB_BUILD_OPTIONS)))
 endif
 
 install: install-stamp
-install-stamp: build-stamp $(PYVERS:%=install-ext-%)
+install-stamp: build-arch $(PYVERS:%=install-ext-%)
 	touch $@
 install-ext-%:
 	python$* setup.py install \
-		--root $(CURDIR)/debian/$(PACKAGE_NAME) \
-		--single-version-externally-managed
+		--root $(CURDIR)/debian/$(PACKAGE_NAME)
 	touch $@
 
 binary-indep:
@@ -62,8 +55,7 @@ binary-arch: build install
 	dh_testroot
 	dh_installchangelogs
 	dh_installdocs
-	dh_link /usr/share/javascript/jquery/jquery.js \
-		/usr/share/doc/python-simplejson/_static/jquery.js
+	dh_sphinxdoc
 	dh_python2
 	dh_strip
 	dh_compress -X.py -X.json -X.js
