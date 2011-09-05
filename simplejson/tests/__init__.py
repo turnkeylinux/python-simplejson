@@ -46,6 +46,8 @@ def all_tests_suite():
         'simplejson.tests.test_speedups',
         'simplejson.tests.test_unicode',
         'simplejson.tests.test_decimal',
+        'simplejson.tests.test_tuple',
+        'simplejson.tests.test_namedtuple',
     ])
     suite = additional_tests(suite)
     return OptionalExtensionTestSuite([suite])
@@ -54,7 +56,7 @@ def all_tests_suite():
 def main():
     runner = unittest.TextTestRunner()
     suite = all_tests_suite()
-    runner.run(suite)
+    raise SystemExit(not runner.run(suite).wasSuccessful())
 
 
 if __name__ == '__main__':
