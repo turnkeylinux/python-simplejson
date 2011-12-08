@@ -1,8 +1,8 @@
-simplejson (2.2.1-1) UNRELEASED; urgency=low
+simplejson (2.3.0-1) unstable; urgency=low
 
   * New upstream release
 
- -- Piotr Ożarowski <piotr@debian.org>  Thu, 08 Sep 2011 19:56:48 +0200
+ -- Piotr Ożarowski <piotr@debian.org>  Thu, 08 Dec 2011 18:28:46 +0100
 
 simplejson (2.2.0-1) unstable; urgency=low
 
