@@ -3,8 +3,8 @@ Section: python
 Priority: optional
 Maintainer: Debian Python Modules Team <python-modules-team@lists.alioth.debian.org>
 Uploaders: Piotr Ożarowski <piotr@debian.org>
-Standards-Version: 3.9.2
-Build-Depends: debhelper (>= 5.0.38), python-all-dev (>= 2.3.5-11),
+Standards-Version: 3.9.3
+Build-Depends: debhelper (>= 7), python-all-dev (>= 2.3.5-11),
  python-sphinx (>= 1.0.7+dfsg-1~)
 Homepage: http://undefined.org/python/#simplejson
 X-Python-Version: >= 2.5
