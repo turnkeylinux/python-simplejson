@@ -1,3 +1,9 @@
+simplejson (2.5.2-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Piotr Ożarowski <piotr@debian.org>  Fri, 11 May 2012 18:16:20 +0200
+
 simplejson (2.5.0-1) unstable; urgency=low
 
   * New upstream release
