@@ -5,6 +5,8 @@ PACKAGE_NAME=python-simplejson
 MODULE_NAME=simplejson
 
 PYVERS=$(shell pyversions -vr)
+DPKG_EXPORT_BUILDFLAGS = 1
+-include /usr/share/dpkg/buildflags.mk
 
 clean:
 	dh_testdir
