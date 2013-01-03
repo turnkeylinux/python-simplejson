@@ -1,73 +1,15 @@
 #!/usr/bin/make -f
-#export DH_VERBOSE=1
 
-PACKAGE_NAME=python-simplejson
-MODULE_NAME=simplejson
+export PYBUILD_DESTDIR_python2=debian/python-simplejson/
+export PYBUILD_DESTDIR_python2-dbg=debian/python-simplejson-dbg/
+export PYBUILD_DESTDIR_python3=debian/python3-simplejson/
+export PYBUILD_DESTDIR_python3-dbg=debian/python3-simplejson-dbg/
 
-PYVERS=$(shell pyversions -vr)
-DPKG_EXPORT_BUILDFLAGS = 1
--include /usr/share/dpkg/buildflags.mk
+%:
+	dh $@ --with python2,python3,sphinxdoc --buildsystem=pybuild
 
-clean:
-	dh_testdir
-	dh_testroot
-	rm -rf dist build build-stamp build-ext-*
-	rm -rf $(MODULE_NAME).egg-info
-	find . -name '*\.py[co]' -delete
-	find . -name '\._*' -delete
-	dh_clean install-stamp install-ext-* build-docs simplejson/_speedups.so
-
-build: build-arch build-indep
-build-arch: $(PYVERS:%=build-ext-%)
-	touch $@
-build-ext-%:
-	dh_testdir
-	python$* setup.py build
-	touch $@
-
-build-indep: build-docs
-build-docs:
+build-indep:
 	dh_testdir
 	dh_installdirs
 	sphinx-build -N -q -E -b html . \
-	 $(CURDIR)/debian/${PACKAGE_NAME}/usr/share/doc/${PACKAGE_NAME}/
-	touch $@
-
-test: $(PYVERS:%=test-python%)
-# Note that tests are not invoked by default at build time
-# for now as setup.py ignores previously built extension and builds it again as
-# simplejson/_speedups.so
-test-python%: build-ext-%
-ifeq (,$(findstring nocheck,$(DEB_BUILD_OPTIONS)))
-	python$* setup.py test --quiet
-endif
-
-install: install-stamp
-install-stamp: build-arch $(PYVERS:%=install-ext-%)
-	touch $@
-install-ext-%:
-	python$* setup.py install \
-		--root $(CURDIR)/debian/$(PACKAGE_NAME)
-	touch $@
-
-binary-indep:
-
-binary-arch: build install
-	dh_testdir
-	dh_testroot
-	dh_installchangelogs
-	dh_installdocs
-	dh_sphinxdoc
-	dh_python2
-	dh_strip
-	dh_compress -X.py -X.json -X.js
-	dh_fixperms
-	dh_installdeb
-	dh_shlibdeps
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb -- -Z bzip2
-
-binary: binary-indep binary-arch
-
-.PHONY: clean binary-indep binary-arch binary
+	 $(CURDIR)/debian/python-simplejson-doc/usr/share/doc/python-simplejson-doc/

@@ -1,3 +1,14 @@
+simplejson (3.0.5-1) UNRELEASED; urgency=low
+
+  * New upstream release
+  * Add python-simplejson-doc binary package
+  * Add python-simplejson-dbg binary package
+  * Add python3-simplejson{,-dbg} binary packages
+    - build depend on python3-all-d{ev,bg}
+  * Rewrite debian/rules to use dh sequencer and pybuild build system
+
+ -- Piotr Ożarowski <piotr@debian.org>  Thu, 03 Jan 2013 20:54:07 +0100
+
 simplejson (2.6.2-1) unstable; urgency=low
 
   * New upstream release
