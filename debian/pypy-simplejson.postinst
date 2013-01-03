@@ -1,0 +1,8 @@
+#!/bin/sh
+set -e
+
+if which pypy >/dev/null 2>&1; then
+  dpkg -L pypy-simplejson | grep '\.py$' | pypy -m py_compile - >/dev/null
+fi
+
+#DEBHELPER#

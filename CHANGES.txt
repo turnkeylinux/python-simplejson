@@ -1,3 +1,86 @@
+Version 3.1.0 released 2013-02-21
+
+* Updated JSON conformance test suite
+  http://bugs.python.org/issue16559
+* simplejson.tool tests and bugfix for Python 3.x
+  http://bugs.python.org/issue16549
+* Improve error messages for certain kinds of truncated input
+  http://bugs.python.org/issue16009
+* Moved JSONDecodeError to json.scanner (still available for import
+  from json.decoder)
+* Changed scanner to use JSONDecodeError directly rather than
+  StopIteration to improve error messages
+
+Version 3.0.9 released 2013-02-21
+
+* Fix an off-by-one error in the colno property of JSONDecodeError
+  (when lineno == 1)
+  http://bugs.python.org/issue17225
+
+Version 3.0.8 released 2013-02-19
+
+* Fix a Python 2.x compiler warning for narrow unicode builds
+  https://github.com/simplejson/simplejson/issues/56
+
+Version 3.0.7 released 2013-01-11
+
+* NOTE: this release only changes the license.
+* simplejson is now dual-licensed software, MIT or AFL v2.1. It is
+  also made explicit that this code is also licensed to the PSF under
+  a Contributor Agreement.
+
+Version 3.0.6 released 2013-01-11
+
+* Fix for major Python 2.x ensure_ascii=False encoding regression
+  introduced in simplejson 3.0.0. If you use this setting, please
+  upgrade immediately.
+  https://github.com/simplejson/simplejson/issues/50
+
+Version 3.0.5 released 2013-01-03
+
+* NOTE: this release only changes the tests, it is
+  not essential to upgrade
+* Tests now run with deprecation warnings printed
+* Fixed Python 3 syntax error in simplejson.tool
+  https://github.com/simplejson/simplejson/issues/49
+* Fixed Python 3.3 deprecation warnings in test suite
+  https://github.com/simplejson/simplejson/issues/48
+
+Version 3.0.4 released 2013-01-02
+
+* MSVC compatibility for Python 3.3
+  https://github.com/simplejson/simplejson/pull/47
+
+Version 3.0.3 released 2013-01-01
+
+* Fixes for bugs introduced in 3.0.2
+* Fixes for Python 2.5 compatibility
+* MSVC compatibility for Python 2.x
+  https://github.com/simplejson/simplejson/pull/46
+
+Version 3.0.2 released 2013-01-01
+
+* THIS VERSION HAS BEEN REMOVED
+* Missed a changeset to _speedups.c in the 3.0.1 branch cut
+
+Version 3.0.1 released 2013-01-01
+
+* THIS VERSION HAS BEEN REMOVED
+* Add accumulator optimization to encoder, equivalent to the usage of
+  `_Py_Accu` in the Python 3.3 json library. Only relevant if encoding
+  very large JSON documents.
+
+Version 3.0.0 released 2012-12-30
+
+* Python 3.3 is now supported, thanks to Vinay Sajip
+  https://github.com/simplejson/simplejson/issues/8
+* `sort_keys`/`item_sort_key` now sort on the stringified verison of the
+  key, rather than the original object. This ensures that the sort
+  only compares string types and makes the behavior consistent between
+  Python 2.x and Python 3.x.
+* Like other number types, Decimal instances used as keys are now
+  coerced to strings when use_decimal is True.
+
 Version 2.6.2 released 2012-09-21
 
 * JSONEncoderForHTML was not exported in the simplejson module

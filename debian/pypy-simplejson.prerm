@@ -1,0 +1,7 @@
+#!/bin/sh
+set -e
+
+find /usr/lib/pypy/dist-packages/simplejson/ \
+ -type d -name __pycache__ | xargs rm -rf
+
+#DEBHELPER#

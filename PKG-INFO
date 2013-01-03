@@ -1,15 +1,15 @@
-Metadata-Version: 1.0
+Metadata-Version: 1.1
 Name: simplejson
-Version: 2.6.2
+Version: 3.1.0
 Summary: Simple, fast, extensible JSON encoder/decoder for Python
 Home-page: http://github.com/simplejson/simplejson
 Author: Bob Ippolito
 Author-email: bob@redivi.com
 License: MIT License
 Description: simplejson is a simple, fast, complete, correct and extensible
-        JSON <http://json.org> encoder and decoder for Python 2.5+.  It is
-        pure Python code with no dependencies, but includes an optional C
-        extension for a serious speed boost.
+        JSON <http://json.org> encoder and decoder for Python 2.5+
+        and Python 3.3+.  It is pure Python code with no dependencies,
+        but includes an optional C extension for a serious speed boost.
         
         The latest documentation for simplejson can be read online here:
         http://simplejson.readthedocs.org/
@@ -27,7 +27,17 @@ Description: simplejson is a simple, fast, complete, correct and extensible
         
         
 Platform: any
+Classifier: Development Status :: 5 - Production/Stable
 Classifier: Intended Audience :: Developers
 Classifier: License :: OSI Approved :: MIT License
+Classifier: License :: OSI Approved :: Academic Free License (AFL)
 Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.5
+Classifier: Programming Language :: Python :: 2.6
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.3
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
 Classifier: Topic :: Software Development :: Libraries :: Python Modules
