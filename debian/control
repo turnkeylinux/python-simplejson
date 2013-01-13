@@ -5,7 +5,7 @@ Maintainer: Debian Python Modules Team <python-modules-team@lists.alioth.debian.
 Uploaders: Piotr Ożarowski <piotr@debian.org>
 Standards-Version: 3.9.3
 Build-Depends: debhelper (>= 9), python-sphinx (>= 1.0.7+dfsg-1~),
- python-all-dev, python-all-dbg,
+ python-all-dev, python-all-dbg, pypy,
  python3-all-dev (>= 3.3.0-2), python3-all-dbg
 Homepage: http://undefined.org/python/#simplejson
 X-Python-Version: >= 2.5
@@ -73,3 +73,17 @@ Recommends: python-simplejson
 Conflicts: python-simplejson (<= 3)
 Description: documentation for the simplejson Python library
  This package contains documentation for simplejson Python library.
+
+Package: pypy-simplejson
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}, pypy
+Description: JSON encoder and decoder for PyPy
+ simplejson is the externally maintained development version of the
+ json library included with Python 2.6 and Python 3.0.
+ .
+ The encoder may be subclassed to provide serialization in any kind of
+ situation, without any special support by the objects to be serialized
+ (somewhat like pickle).
+ .
+ The decoder can handle incoming JSON strings of any specified encoding
+ (UTF-8 by default).

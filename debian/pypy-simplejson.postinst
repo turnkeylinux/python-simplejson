@@ -1,0 +1,5 @@
+#!/bin/sh
+set -e
+
+find /usr/lib/pypy/dist-packages/simplejson/ \
+ -name '*.py' | pypy -m py_compile - >/dev/null
