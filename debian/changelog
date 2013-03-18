@@ -1,4 +1,4 @@
-simplejson (3.0.7-1) UNRELEASED; urgency=low
+simplejson (3.1.0-1) experimental; urgency=low
 
   * New upstream release
   * New binary packages:
@@ -9,6 +9,9 @@ simplejson (3.0.7-1) UNRELEASED; urgency=low
     - pypy-simplejson
   * Build depend on python3-all-d{ev,bg} and pypy (for new packages)
   * Rewrite debian/rules to use dh sequencer and pybuild build system
+  * Add support_pydebug_interpreters_in_tests patch
+    - bump minimum required Python version to 2.6
+      (due to test.test_support.strip_python_stderr)
 
  -- Piotr Ożarowski <piotr@debian.org>  Thu, 03 Jan 2013 20:54:07 +0100
 

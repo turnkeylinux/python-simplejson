@@ -8,7 +8,7 @@ Build-Depends: debhelper (>= 9), python-sphinx (>= 1.0.7+dfsg-1~),
  python-all-dev, python-all-dbg, pypy,
  python3-all-dev (>= 3.3.0-3), python3-all-dbg
 Homepage: http://undefined.org/python/#simplejson
-X-Python-Version: >= 2.5
+X-Python-Version: >= 2.6
 X-Python3-Version: >= 3.3
 Vcs-Svn: svn://svn.debian.org/python-modules/packages/simplejson/trunk/
 Vcs-Browser: http://svn.debian.org/viewsvn/python-modules/packages/simplejson/trunk/
