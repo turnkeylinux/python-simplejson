@@ -8,7 +8,7 @@ from distutils.errors import CCompilerError, DistutilsExecError, \
     DistutilsPlatformError
 
 IS_PYPY = hasattr(sys, 'pypy_translation_info')
-VERSION = '3.1.0'
+VERSION = '3.1.2'
 DESCRIPTION = "Simple, fast, extensible JSON encoder/decoder for Python"
 
 with open('README.rst', 'r') as f:
@@ -35,8 +35,9 @@ Topic :: Software Development :: Libraries :: Python Modules
 if sys.platform == 'win32' and sys.version_info > (2, 6):
    # 2.6's distutils.msvc9compiler can raise an IOError when failing to
    # find the compiler
+   # It can also raise ValueError http://bugs.python.org/issue7511
    ext_errors = (CCompilerError, DistutilsExecError, DistutilsPlatformError,
-                 IOError)
+                 IOError, ValueError)
 else:
    ext_errors = (CCompilerError, DistutilsExecError, DistutilsPlatformError)
 
