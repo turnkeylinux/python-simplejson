@@ -1,3 +1,10 @@
+simplejson (3.1.2-1) experimental; urgency=low
+
+  * New upstream release
+  * support_pydebug_interpreters_in_tests patch removed, applied upstream
+
+ -- Piotr Ożarowski <piotr@debian.org>  Wed, 20 Mar 2013 22:19:25 +0100
+
 simplejson (3.1.0-1) experimental; urgency=low
 
   * New upstream release
@@ -13,7 +20,7 @@ simplejson (3.1.0-1) experimental; urgency=low
     - bump minimum required Python version to 2.6
       (due to test.test_support.strip_python_stderr)
 
- -- Piotr Ożarowski <piotr@debian.org>  Thu, 03 Jan 2013 20:54:07 +0100
+ -- Piotr Ożarowski <piotr@debian.org>  Mon, 18 Mar 2013 21:34:49 +0100
 
 simplejson (2.6.2-1) unstable; urgency=low
 
