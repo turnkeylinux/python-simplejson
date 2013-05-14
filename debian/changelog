@@ -1,8 +1,12 @@
-simplejson (3.2.0-2) UNRELEASED; urgency=low
+simplejson (3.3.0-1) experimental; urgency=low
 
+  [ Jakub Wilk ]
   * Use canonical URIs for Vcs-* fields.
 
- -- Jakub Wilk <jwilk@debian.org>  Sun, 05 May 2013 16:03:57 +0200
+  [ Piotr Ożarowski ]
+  * New upstream release
+
+ -- Piotr Ożarowski <piotr@debian.org>  Tue, 14 May 2013 23:42:10 +0200
 
 simplejson (3.2.0-1) experimental; urgency=low
 
