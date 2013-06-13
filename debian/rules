@@ -14,3 +14,6 @@ build-indep:
 	dh_installdirs
 	sphinx-build -N -q -E -b html . \
 	 $(CURDIR)/debian/python-simplejson-doc/usr/share/doc/python-simplejson-doc/
+
+override_dh_sphinxdoc:
+	dh_sphinxdoc -p python-simplejson-doc

@@ -1,3 +1,9 @@
+simplejson (3.3.0-2) experimental; urgency=low
+
+  * Fix FTBFS due to missing docs
+
+ -- Piotr Ożarowski <piotr@debian.org>  Thu, 13 Jun 2013 23:20:24 +0200
+
 simplejson (3.3.0-1) experimental; urgency=low
 
   [ Jakub Wilk ]
