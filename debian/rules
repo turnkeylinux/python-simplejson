@@ -7,7 +7,7 @@ export PYBUILD_DESTDIR_python3-dbg=debian/python3-simplejson-dbg/
 export PYBUILD_DESTDIR_pypy=debian/pypy-simplejson/
 
 %:
-	dh $@ --with python2,python3,sphinxdoc --buildsystem=pybuild
+	dh $@ --with python2,python3,pypy,sphinxdoc --buildsystem=pybuild
 
 build-indep:
 	dh_testdir
