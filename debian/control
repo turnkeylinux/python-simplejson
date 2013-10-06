@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Debian Python Modules Team <python-modules-team@lists.alioth.debian.org>
 Uploaders: Piotr Ożarowski <piotr@debian.org>
 Standards-Version: 3.9.4
-Build-Depends: debhelper (>= 9), python-sphinx (>= 1.0.7+dfsg-1~), dh-python (>= 1.20130707),
+Build-Depends: debhelper (>= 9), python-sphinx (>= 1.0.7+dfsg-1~), dh-python (>= 1.20130807),
  python-all-dev, python-all-dbg, pypy,
  python3-all-dev, python3-all-dbg
 Homepage: http://undefined.org/python/#simplejson
