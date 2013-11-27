@@ -1,3 +1,10 @@
+simplejson (3.3.1-2) unstable; urgency=low
+
+  * Build pypy-simplejson (arch-indep package) only on amd64 or i386
+    (i.e. Build-Depend on pypy only on these architectures)
+
+ -- Piotr Ożarowski <piotr@debian.org>  Wed, 27 Nov 2013 21:47:16 +0100
+
 simplejson (3.3.1-1) unstable; urgency=low
 
   * New upstream release
