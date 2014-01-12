@@ -1,3 +1,9 @@
+simplejson (3.3.2-1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Piotr Ożarowski <piotr@debian.org>  Sun, 12 Jan 2014 19:20:16 +0100
+
 simplejson (3.3.1-2) unstable; urgency=low
 
   * Build pypy-simplejson (arch-indep package) only on amd64 or i386
