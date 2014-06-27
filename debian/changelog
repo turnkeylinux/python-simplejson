@@ -1,3 +1,9 @@
+simplejson (3.5.3-1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Piotr Ożarowski <piotr@debian.org>  Fri, 27 Jun 2014 20:16:08 +0200
+
 simplejson (3.5.2-1) unstable; urgency=medium
 
   * New upstream release
