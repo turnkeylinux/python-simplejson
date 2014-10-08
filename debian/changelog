@@ -1,3 +1,10 @@
+simplejson (3.6.4-1) unstable; urgency=medium
+
+  * New upstream release
+  * Standards-version bumped to 3.9.6 (no changes needed)
+
+ -- Piotr Ożarowski <piotr@llt0.p1otr.com>  Wed, 08 Oct 2014 23:49:40 +0200
+
 simplejson (3.6.3-1) unstable; urgency=medium
 
   * New upstream release
