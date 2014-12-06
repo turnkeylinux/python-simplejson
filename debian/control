@@ -12,6 +12,7 @@ X-Python-Version: >= 2.6
 X-Python3-Version: >= 3.3
 Vcs-Svn: svn://anonscm.debian.org/python-modules/packages/simplejson/trunk/
 Vcs-Browser: http://anonscm.debian.org/viewvc/python-modules/packages/simplejson/trunk/
+XS-Testsuite: autopkgtest
 
 Package: python-simplejson
 Architecture: any
