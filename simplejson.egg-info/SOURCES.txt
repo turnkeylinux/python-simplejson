@@ -25,6 +25,7 @@ simplejson/_speedups.c
 simplejson/decoder.py
 simplejson/encoder.py
 simplejson/scanner.py
+simplejson/tool.py
 simplejson.egg-info/PKG-INFO
 simplejson.egg-info/SOURCES.txt
 simplejson.egg-info/dependency_links.txt
