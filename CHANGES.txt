@@ -1,3 +1,14 @@
+Version 2.1.2 released 2010-11-01
+
+* Correct wrong end when object_pairs_hook is used
+  http://code.google.com/p/simplejson/issues/detail?id=85
+* Correct output for indent=0
+  http://bugs.python.org/issue10019
+* Correctly raise TypeError when non-string keys are used with speedups
+  http://code.google.com/p/simplejson/issues/detail?id=82
+* Fix the endlineno, endcolno attributes of the JSONDecodeError exception.
+  http://code.google.com/p/simplejson/issues/detail?id=81
+
 Version 2.1.1 released 2010-03-31
 
 * Change how setup.py imports ez_setup.py to try and workaround old versions
