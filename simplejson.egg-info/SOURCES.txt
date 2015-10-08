@@ -40,3 +40,4 @@ simplejson/tests/test_pass1.py
 simplejson/tests/test_pass2.py
 simplejson/tests/test_pass3.py
 simplejson/tests/test_recursion.py
+simplejson/tests/test_separators.py
