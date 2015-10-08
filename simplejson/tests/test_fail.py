@@ -1,3 +1,7 @@
+from unittest import TestCase
+
+import simplejson as S
+
 # Fri Dec 30 18:57:26 2005
 JSONDOCS = [
     # http://json.org/JSON_checker/test/fail1.json
@@ -48,6 +52,8 @@ JSONDOCS = [
     '["Bad value", truth]',
     # http://json.org/JSON_checker/test/fail24.json
     "['single quote']",
+    # http://code.google.com/p/simplejson/issues/detail?id=3
+    u'["A\u001FZ control characters in string"]',
 ]
 
 SKIPS = {
@@ -55,16 +61,16 @@ SKIPS = {
     18: "spec doesn't specify any nesting limitations",
 }
 
-def test_failures():
-    import simplejson
-    for idx, doc in enumerate(JSONDOCS):
-        idx = idx + 1
-        if idx in SKIPS:
-            simplejson.loads(doc)
-            continue
-        try:
-            simplejson.loads(doc)
-        except ValueError:
-            pass
-        else:
-            assert False, "Expected failure for fail%d.json: %r" % (idx, doc)
+class TestFail(TestCase):
+    def test_failures(self):
+        for idx, doc in enumerate(JSONDOCS):
+            idx = idx + 1
+            if idx in SKIPS:
+                S.loads(doc)
+                continue
+            try:
+                S.loads(doc)
+            except ValueError:
+                pass
+            else:
+                self.fail("Expected failure for fail%d.json: %r" % (idx, doc))
