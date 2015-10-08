@@ -1,6 +1,8 @@
+import sys
 from unittest import TestCase
 
 import simplejson as json
+from simplejson.compat import u, b
 
 class TestErrors(TestCase):
     def test_string_keys_error(self):
@@ -11,24 +13,23 @@ class TestErrors(TestCase):
         err = None
         try:
             json.loads('{}\na\nb')
-        except json.JSONDecodeError, e:
-            err = e
+        except json.JSONDecodeError:
+            err = sys.exc_info()[1]
         else:
             self.fail('Expected JSONDecodeError')
-        self.assertEquals(err.lineno, 2)
-        self.assertEquals(err.colno, 1)
-        self.assertEquals(err.endlineno, 3)
-        self.assertEquals(err.endcolno, 2)
+        self.assertEqual(err.lineno, 2)
+        self.assertEqual(err.colno, 1)
+        self.assertEqual(err.endlineno, 3)
+        self.assertEqual(err.endcolno, 2)
 
     def test_scan_error(self):
         err = None
-        for t in (str, unicode):
+        for t in (u, b):
             try:
                 json.loads(t('{"asdf": "'))
-            except json.JSONDecodeError, e:
-                err = e
+            except json.JSONDecodeError:
+                err = sys.exc_info()[1]
             else:
                 self.fail('Expected JSONDecodeError')
-            self.assertEquals(err.lineno, 1)
-            self.assertEquals(err.colno, 9)
-        
+            self.assertEqual(err.lineno, 1)
+            self.assertEqual(err.colno, 10)
