@@ -67,9 +67,9 @@ Specializing JSON object decoding::
     >>> simplejson.loads('{"__complex__": true, "real": 1, "imag": 2}',
     ...     object_hook=as_complex)
     (1+2j)
-    >>> import decimal
-    >>> simplejson.loads('1.1', parse_float=decimal.Decimal)
-    Decimal("1.1")
+    >>> from decimal import Decimal
+    >>> simplejson.loads('1.1', parse_float=Decimal) == Decimal("1.1")
+    True
 
 Extending JSONEncoder::
     
@@ -101,7 +101,7 @@ pretty-print::
 Note that the JSON produced by this module's default settings
 is a subset of YAML, so it may be used as a serializer for that as well.
 """
-__version__ = '2.0.2'
+__version__ = '2.0.3'
 __all__ = [
     'dump', 'dumps', 'load', 'loads',
     'JSONDecoder', 'JSONEncoder',
@@ -109,7 +109,7 @@ __all__ = [
 
 if __name__ == '__main__':
     import warnings
-    warnings.warn('python -msimplejson is deprecated, use python -msiplejson.tool', DeprecationWarning)
+    warnings.warn('python -msimplejson is deprecated, use python -msimplejson.tool', DeprecationWarning)
     from simplejson.decoder import JSONDecoder
     from simplejson.encoder import JSONEncoder
 else:
