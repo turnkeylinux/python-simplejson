@@ -1,4 +1,5 @@
 LICENSE.txt
+ez_setup.py
 setup.cfg
 setup.py
 docs/class-simplejson.JSONDecoder.html
@@ -16,8 +17,6 @@ docs/simplejson/decoder.py.html
 docs/simplejson/encoder.py.html
 docs/simplejson/jsonfilter.py.html
 docs/simplejson/scanner.py.html
-ez_setup/README.txt
-ez_setup/__init__.py
 scripts/bench.sh
 scripts/make_docs.py
 scripts/prof.py
@@ -31,6 +30,7 @@ simplejson.egg-info/PKG-INFO
 simplejson.egg-info/SOURCES.txt
 simplejson.egg-info/dependency_links.txt
 simplejson.egg-info/entry_points.txt
+simplejson.egg-info/native_libs.txt
 simplejson.egg-info/top_level.txt
 simplejson.egg-info/zip-safe
 simplejson/tests/__init__.py
