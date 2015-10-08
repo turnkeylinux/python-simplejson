@@ -30,8 +30,10 @@ Encoding basic Python object hierarchies::
 Compact encoding::
 
     >>> import simplejson
-    >>> simplejson.dumps([1,2,3,{'4': 5, '6': 7}], separators=(',',':'))
-    '[1,2,3,{"4":5,"6":7}]'
+    >>> compact = simplejson.dumps([1,2,3,{'4': 5, '6': 7}], separators=(',',':'))
+    >>> # Can't assume dict ordering
+    >>> compact in ('[1,2,3,{"4":5,"6":7}]', '[1,2,3,{"6":7,"4":5}]')
+    True
 
 Pretty printing::
 
@@ -99,7 +101,7 @@ pretty-print::
 Note that the JSON produced by this module's default settings
 is a subset of YAML, so it may be used as a serializer for that as well.
 """
-__version__ = '1.9.2'
+__version__ = '1.9.3'
 __all__ = [
     'dump', 'dumps', 'load', 'loads',
     'JSONDecoder', 'JSONEncoder',

@@ -29,7 +29,6 @@ simplejson/tool.py
 simplejson.egg-info/PKG-INFO
 simplejson.egg-info/SOURCES.txt
 simplejson.egg-info/dependency_links.txt
-simplejson.egg-info/native_libs.txt
 simplejson.egg-info/top_level.txt
 simplejson.egg-info/zip-safe
 simplejson/tests/__init__.py
