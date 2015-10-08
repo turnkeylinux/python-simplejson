@@ -2,26 +2,27 @@
 
 import sys
 try:
-    from ez_setup import use_setuptools
-    use_setuptools(version='0.6c11')
+    import setuptools
 except ImportError:
-    pass
+    from ez_setup import use_setuptools
+    use_setuptools()
 
 from setuptools import setup, find_packages, Extension, Feature
 from distutils.command.build_ext import build_ext
 from distutils.errors import CCompilerError, DistutilsExecError, \
     DistutilsPlatformError
 
-VERSION = '2.1.0'
+VERSION = '2.1.1'
 DESCRIPTION = "Simple, fast, extensible JSON encoder/decoder for Python"
 LONG_DESCRIPTION = """
 simplejson is a simple, fast, complete, correct and extensible
-JSON <http://json.org> encoder and decoder for Python 2.4+.  It is
+JSON <http://json.org> encoder and decoder for Python 2.5+.  It is
 pure Python code with no dependencies, but includes an optional C
 extension for a serious speed boost.
 
-simplejson was formerly known as simple_json, but changed its name to
-comply with PEP 8 module naming guidelines.
+simplejson is the externally maintained development version of the
+json library included with Python 2.6 and Python 3.0, but maintains
+backwards compatibility with Python 2.5.
 
 The encoder may be subclassed to provide serialization in any kind of
 situation, without any special support by the objects to be serialized
@@ -41,7 +42,7 @@ Topic :: Software Development :: Libraries :: Python Modules
 
 
 speedups = Feature(
-    "options C speed-enhancement modules",
+    "optional C speed-enhancement module",
     standard=True,
     ext_modules = [
         Extension("simplejson._speedups", ["simplejson/_speedups.c"]),
