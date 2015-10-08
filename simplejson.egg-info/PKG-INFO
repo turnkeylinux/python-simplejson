@@ -1,6 +1,6 @@
 Metadata-Version: 1.0
 Name: simplejson
-Version: 1.6
+Version: 1.7
 Summary: Simple, fast, extensible JSON encoder/decoder for Python
 Home-page: http://undefined.org/python/#simplejson
 Author: Bob Ippolito
@@ -9,7 +9,8 @@ License: MIT License
 Description: 
         simplejson is a simple, fast, complete, correct and extensible
         JSON <http://json.org> encoder and decoder for Python 2.3+.  It is
-        pure Python code with no dependencies.
+        pure Python code with no dependencies, but includes an optional C
+        extension for a serious speed boost.
         
         simplejson was formerly known as simple_json, but changed its name to
         comply with PEP 8 module naming guidelines.

@@ -22,6 +22,7 @@ scripts/bench.sh
 scripts/make_docs.py
 scripts/prof.py
 simplejson/__init__.py
+simplejson/_speedups.c
 simplejson/decoder.py
 simplejson/encoder.py
 simplejson/jsonfilter.py
