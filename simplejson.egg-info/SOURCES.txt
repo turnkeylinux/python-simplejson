@@ -1,3 +1,5 @@
+.hgignore
+CHANGES.txt
 LICENSE.txt
 conf.py
 ez_setup.py
@@ -6,7 +8,9 @@ setup.cfg
 setup.py
 docs/genindex.html
 docs/index.html
+docs/objects.inv
 docs/search.html
+docs/searchindex.js
 docs/searchindex.json
 docs/_sources/index.txt
 docs/_static/contents.png
@@ -29,6 +33,7 @@ simplejson/__init__.py
 simplejson/_speedups.c
 simplejson/decoder.py
 simplejson/encoder.py
+simplejson/ordered_dict.py
 simplejson/scanner.py
 simplejson/tool.py
 simplejson.egg-info/PKG-INFO
@@ -38,10 +43,12 @@ simplejson.egg-info/top_level.txt
 simplejson.egg-info/zip-safe
 simplejson/tests/__init__.py
 simplejson/tests/test_check_circular.py
+simplejson/tests/test_decimal.py
 simplejson/tests/test_decode.py
 simplejson/tests/test_default.py
 simplejson/tests/test_dump.py
 simplejson/tests/test_encode_basestring_ascii.py
+simplejson/tests/test_encode_for_html.py
 simplejson/tests/test_fail.py
 simplejson/tests/test_float.py
 simplejson/tests/test_indent.py
@@ -51,4 +58,5 @@ simplejson/tests/test_pass3.py
 simplejson/tests/test_recursion.py
 simplejson/tests/test_scanstring.py
 simplejson/tests/test_separators.py
+simplejson/tests/test_speedups.py
 simplejson/tests/test_unicode.py
