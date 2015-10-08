@@ -78,7 +78,7 @@ Specializing JSON object encoding::
     >>> def encode_complex(obj):
     ...     if isinstance(obj, complex):
     ...         return [obj.real, obj.imag]
-    ...     raise TypeError("%r is not JSON serializable" % (o,))
+    ...     raise TypeError(repr(o) + " is not JSON serializable")
     ...
     >>> json.dumps(2 + 1j, default=encode_complex)
     '[2.0, 1.0]'
@@ -90,18 +90,20 @@ Specializing JSON object encoding::
 
 Using simplejson.tool from the shell to validate and pretty-print::
 
-    $ echo '{"json":"obj"}' | python -msimplejson.tool
+    $ echo '{"json":"obj"}' | python -m simplejson.tool
     {
         "json": "obj"
     }
-    $ echo '{ 1.2:3.4}' | python -msimplejson.tool
+    $ echo '{ 1.2:3.4}' | python -m simplejson.tool
     Expecting property name: line 1 column 2 (char 2)
 """
-__version__ = '2.0.8'
+__version__ = '2.0.9'
 __all__ = [
     'dump', 'dumps', 'load', 'loads',
     'JSONDecoder', 'JSONEncoder',
 ]
+
+__author__ = 'Bob Ippolito <bob@redivi.com>'
 
 from decoder import JSONDecoder
 from encoder import JSONEncoder
