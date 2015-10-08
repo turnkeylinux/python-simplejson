@@ -34,7 +34,8 @@ simplejson.egg-info/native_libs.txt
 simplejson.egg-info/top_level.txt
 simplejson.egg-info/zip-safe
 simplejson/tests/__init__.py
-simplejson/tests/test_attacks.py
+simplejson/tests/test_decode.py
+simplejson/tests/test_default.py
 simplejson/tests/test_dump.py
 simplejson/tests/test_fail.py
 simplejson/tests/test_float.py

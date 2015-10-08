@@ -2,8 +2,13 @@
 Implementation of JSONDecoder
 """
 import re
+import sys
 
 from simplejson.scanner import Scanner, pattern
+try:
+    from simplejson import _speedups
+except:
+    _speedups = None
 
 FLAGS = re.VERBOSE | re.MULTILINE | re.DOTALL
 
@@ -44,16 +49,24 @@ _CONSTANTS = {
 }
 
 def JSONConstant(match, context, c=_CONSTANTS):
-    return c[match.group(0)], None
+    s = match.group(0)
+    fn = getattr(context, 'parse_constant', None)
+    if fn is None:
+        rval = c[s]
+    else:
+        rval = fn(s)
+    return rval, None
 pattern('(-?Infinity|NaN|true|false|null)')(JSONConstant)
 
 def JSONNumber(match, context):
     match = JSONNumber.regex.match(match.string, *match.span())
     integer, frac, exp = match.groups()
     if frac or exp:
-        res = float(integer + (frac or '') + (exp or ''))
+        fn = getattr(context, 'parse_float', None) or float
+        res = fn(integer + (frac or '') + (exp or ''))
     else:
-        res = int(integer)
+        fn = getattr(context, 'parse_int', None) or int
+        res = fn(integer)
     return res, None
 pattern(r'(-?(?:0|[1-9]\d*))(\.\d+)?([eE][-+]?\d+)?')(JSONNumber)
 
@@ -98,15 +111,32 @@ def scanstring(s, end, encoding=None, _b=BACKSLASH, _m=STRINGCHUNK.match):
             end += 1
         else:
             esc = s[end + 1:end + 5]
+            next_end = end + 5
+            msg = "Invalid \\uXXXX escape"
             try:
-                m = unichr(int(esc, 16))
-                if len(esc) != 4 or not esc.isalnum():
+                if len(esc) != 4:
                     raise ValueError
+                uni = int(esc, 16)
+                if 0xd800 <= uni <= 0xdbff and sys.maxunicode > 65535:
+                    msg = "Invalid \\uXXXX\\uXXXX surrogate pair"
+                    if not s[end + 5:end + 7] == '\\u':
+                        raise ValueError
+                    esc2 = s[end + 7:end + 11]
+                    if len(esc2) != 4:
+                        raise ValueError
+                    uni2 = int(esc2, 16)
+                    uni = 0x10000 + (((uni - 0xd800) << 10) | (uni2 - 0xdc00))
+                    next_end += 6
+                m = unichr(uni)
             except ValueError:
-                raise ValueError(errmsg("Invalid \\uXXXX escape", s, end))
-            end += 5
+                raise ValueError(errmsg(msg, s, end))
+            end = next_end
         _append(m)
     return u''.join(chunks), end
+
+# Use speedup
+if _speedups is not None:
+    scanstring = _speedups.scanstring
 
 def JSONString(match, context):
     encoding = getattr(context, 'encoding', None)
@@ -197,7 +227,7 @@ class JSONDecoder(object):
     """
     Simple JSON <http://json.org> decoder
 
-    Performs the following translations in decoding:
+    Performs the following translations in decoding by default:
     
     +---------------+-------------------+
     | JSON          | Python            |
@@ -226,7 +256,8 @@ class JSONDecoder(object):
     _scanner = Scanner(ANYTHING)
     __all__ = ['__init__', 'decode', 'raw_decode']
 
-    def __init__(self, encoding=None, object_hook=None):
+    def __init__(self, encoding=None, object_hook=None, parse_float=None,
+            parse_int=None, parse_constant=None):
         """
         ``encoding`` determines the encoding used to interpret any ``str``
         objects decoded by this instance (utf-8 by default).  It has no
@@ -239,9 +270,27 @@ class JSONDecoder(object):
         of every JSON object decoded and its return value will be used in
         place of the given ``dict``.  This can be used to provide custom
         deserializations (e.g. to support JSON-RPC class hinting).
+
+        ``parse_float``, if specified, will be called with the string
+        of every JSON float to be decoded. By default this is equivalent to
+        float(num_str). This can be used to use another datatype or parser
+        for JSON floats (e.g. decimal.Decimal).
+
+        ``parse_int``, if specified, will be called with the string
+        of every JSON int to be decoded. By default this is equivalent to
+        int(num_str). This can be used to use another datatype or parser
+        for JSON integers (e.g. float).
+
+        ``parse_constant``, if specified, will be called with one of the
+        following strings: -Infinity, Infinity, NaN, null, true, false.
+        This can be used to raise an exception if invalid JSON numbers
+        are encountered.
         """
         self.encoding = encoding
         self.object_hook = object_hook
+        self.parse_float = parse_float
+        self.parse_int = parse_int
+        self.parse_constant = parse_constant
 
     def decode(self, s, _w=WHITESPACE.match):
         """
