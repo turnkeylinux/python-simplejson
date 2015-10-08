@@ -1,6 +1,6 @@
 Metadata-Version: 1.0
 Name: simplejson
-Version: 2.1.6
+Version: 2.2.0
 Summary: Simple, fast, extensible JSON encoder/decoder for Python
 Home-page: http://github.com/simplejson/simplejson
 Author: Bob Ippolito
@@ -12,7 +12,7 @@ Description: simplejson is a simple, fast, complete, correct and extensible
         extension for a serious speed boost.
         
         The latest documentation for simplejson can be read online here:
-        http://simplejson.github.com/simplejson/
+        http://simplejson.readthedocs.org/
         
         simplejson is the externally maintained development version of the
         json library included with Python 2.6 and Python 3.0, but maintains
