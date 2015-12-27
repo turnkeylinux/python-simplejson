@@ -34,6 +34,7 @@ simplejson/tests/test_float.py
 simplejson/tests/test_for_json.py
 simplejson/tests/test_indent.py
 simplejson/tests/test_item_sort_key.py
+simplejson/tests/test_iterable.py
 simplejson/tests/test_namedtuple.py
 simplejson/tests/test_pass1.py
 simplejson/tests/test_pass2.py
