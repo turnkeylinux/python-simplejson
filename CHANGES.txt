@@ -1,3 +1,15 @@
+Version 3.8.1 released 2015-10-27
+
+* Fix issue with iterable_as_array and indent option
+  https://github.com/simplejson/simplejson/issues/128
+* Fix typo in keyword argument name introduced in 3.8.0
+  https://github.com/simplejson/simplejson/pull/123
+
+Version 3.8.0 released 2015-07-18
+
+* New iterable_as_array encoder option to perform lazy serialization of
+  any iterable objects, without having to convert to tuple or list.
+
 Version 3.7.3 released 2015-05-31
 
 * Fix typo introduced in 3.7.0 (behavior should be indistinguishable)

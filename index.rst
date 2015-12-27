@@ -142,7 +142,7 @@ Basic Usage
                    namedtuple_as_object=True, tuple_as_array=True, \
                    bigint_as_string=False, sort_keys=False, \
                    item_sort_key=None, for_json=None, ignore_nan=False, \
-                   int_as_string_bitcount=None, **kw)
+                   int_as_string_bitcount=None, iterable_as_array=False, **kw)
 
    Serialize *obj* as a JSON formatted stream to *fp* (a ``.write()``-supporting
    file-like object) using this :ref:`conversion table <py-to-json-table>`.
@@ -230,6 +230,13 @@ Basic Usage
    If *tuple_as_array* is true (default: ``True``),
    :class:`tuple` (and subclasses) will be encoded as JSON arrays.
 
+  If *iterable_as_array* is true (default: ``False``),
+  any object not in the above table that implements ``__iter__()``
+  will be encoded as a JSON array.
+
+  .. versionchanged:: 3.8.0
+    *iterable_as_array* is new in 3.8.0.
+
    .. versionchanged:: 2.2.0
      *tuple_as_array* is new in 2.2.0.
 
@@ -302,7 +309,7 @@ Basic Usage
                     namedtuple_as_object=True, tuple_as_array=True, \
                     bigint_as_string=False, sort_keys=False, \
                     item_sort_key=None, for_json=None, ignore_nan=False, \
-                    int_as_string_bitcount=None, **kw)
+                    int_as_string_bitcount=None, iterable_as_array=False, **kw)
 
    Serialize *obj* to a JSON formatted :class:`str`.
 
@@ -373,6 +380,14 @@ Basic Usage
 
    .. versionchanged:: 2.1.0
       *use_decimal* is new in 2.1.0.
+
+   If *iterable_as_array* is true (default: ``False``),
+   any object not in the above table that implements ``__iter__()``
+   will be encoded as a JSON array.
+
+   .. versionchanged:: 3.8.0
+     *iterable_as_array* is new in 3.8.0.
+
 
    To use a custom :class:`JSONDecoder` subclass, specify it with the ``cls``
    kwarg.  Additional keyword arguments will be passed to the constructor of the
@@ -527,7 +542,7 @@ Encoders and decoders
                        namedtuple_as_object=True, tuple_as_array=True, \
                        bigint_as_string=False, item_sort_key=None, \
                        for_json=True, ignore_nan=False, \
-                       int_as_string_bitcount=None)
+                       int_as_string_bitcount=None, iterable_as_array=False)
 
    Extensible JSON encoder for Python data structures.
 
@@ -661,6 +676,13 @@ Encoders and decoders
 
    .. versionchanged:: 2.2.0
      *tuple_as_array* is new in 2.2.0.
+
+   If *iterable_as_array* is true (default: ``False``),
+   any object not in the above table that implements ``__iter__()``
+   will be encoded as a JSON array.
+
+   .. versionchanged:: 3.8.0
+     *iterable_as_array* is new in 3.8.0.
 
    If *bigint_as_string* is true (default: ``False``), :class:`int`` ``2**53``
    and higher or lower than ``-2**53`` will be encoded as strings. This is to
