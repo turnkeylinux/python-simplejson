@@ -7,7 +7,7 @@ Standards-Version: 3.9.8
 Build-Depends: debhelper (>= 9), python-sphinx (>= 1.0.7+dfsg-1~), dh-python (>= 1.20130807),
  python-all-dev, pypy [amd64 i386],
  python3-all-dev,
-Homepage: http://undefined.org/python/#simplejson
+Homepage: https://github.com/simplejson/simplejson
 X-Python-Version: >= 2.6
 X-Python3-Version: >= 3.3
 Vcs-Git: https://anonscm.debian.org/git/python-modules/packages/simplejson.git

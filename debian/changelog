@@ -9,6 +9,7 @@ simplejson (3.8.2-1) UNRELEASED; urgency=medium
   * Changed Conflicts to Replaces+Breaks
   * Removed -dbg packages, use -dbgsym instead
   * Removed Recommends: libjs-jquery
+  * Changed homepage to Github
 
  -- Ondřej Nový <novy@ondrej.org>  Tue, 29 Mar 2016 22:31:44 +0200
 
