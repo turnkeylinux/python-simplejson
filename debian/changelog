@@ -5,6 +5,7 @@ simplejson (3.8.2-1) UNRELEASED; urgency=medium
   * d/copyright converted into machine-readable format
   * Standards-Version is 3.9.8 now (no change)
   * Added doc-base
+  * Cleanup of package descriptions
 
  -- Ondřej Nový <novy@ondrej.org>  Tue, 29 Mar 2016 22:31:44 +0200
 
