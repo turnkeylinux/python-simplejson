@@ -1,0 +1,9 @@
+Document: python-simplejson-doc
+Title: Python SimpleJSON Documentation
+Abstract: Sphinx documentation for SimpleJSON
+Author: Bob Ippolito
+Section: Programming/Python
+
+Format: HTML
+Index: /usr/share/doc/python-simplejson-doc/index.html
+Files: /usr/share/doc/python-simplejson-doc/*
