@@ -5,6 +5,7 @@ README.rst
 conf.py
 index.rst
 setup.py
+scripts/artifacts.py
 scripts/make_docs.py
 simplejson/__init__.py
 simplejson/_speedups.c
