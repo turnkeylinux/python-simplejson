@@ -3,6 +3,7 @@ simplejson (3.8.2-1) UNRELEASED; urgency=medium
   * New upstream release
   * Fixed VCS URL (https)
   * d/copyright converted into machine-readable format
+  * Standards-Version is 3.9.8 now (no change)
 
  -- Ondřej Nový <novy@ondrej.org>  Tue, 29 Mar 2016 22:31:44 +0200
 
