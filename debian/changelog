@@ -7,6 +7,7 @@ simplejson (3.8.2-1) UNRELEASED; urgency=medium
   * Added doc-base
   * Cleanup of package descriptions
   * Changed Conflicts to Replaces+Breaks
+  * Removed -dbg packages, use -dbgsym instead
 
  -- Ondřej Nový <novy@ondrej.org>  Tue, 29 Mar 2016 22:31:44 +0200
 
