@@ -1,5 +1,6 @@
-simplejson (3.8.1-2) UNRELEASED; urgency=medium
+simplejson (3.8.2-1) UNRELEASED; urgency=medium
 
+  * New upstream release
   * Fixed VCS URL (https)
 
  -- Ondřej Nový <novy@ondrej.org>  Tue, 29 Mar 2016 22:31:44 +0200
