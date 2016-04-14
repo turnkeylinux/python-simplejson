@@ -18,7 +18,6 @@ Package: python-simplejson
 Architecture: any
 Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends}
 Breaks: ${python:Breaks}
-Recommends: libjs-jquery
 Provides: ${python:Provides}
 Description: simple, fast, extensible JSON encoder/decoder for Python 2.x
  simplejson is a simple, fast, complete, correct and extensible JSON
