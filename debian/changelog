@@ -1,9 +1,9 @@
-simplejson (3.8.2-2) UNRELEASED; urgency=medium
+simplejson (3.8.2-2) unstable; urgency=medium
 
-  * Team upload.
+  [ Ondřej Nový ]
   * Added -dbg packages back and don't generate -dbgsym
 
- -- Ondřej Nový <novy@ondrej.org>  Fri, 15 Apr 2016 15:25:02 +0200
+ -- Piotr Ożarowski <piotr@debian.org>  Mon, 18 Apr 2016 21:55:44 +0200
 
 simplejson (3.8.2-1) unstable; urgency=medium
 
