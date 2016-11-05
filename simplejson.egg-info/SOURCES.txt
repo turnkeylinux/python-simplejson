@@ -40,10 +40,12 @@ simplejson/tests/test_namedtuple.py
 simplejson/tests/test_pass1.py
 simplejson/tests/test_pass2.py
 simplejson/tests/test_pass3.py
+simplejson/tests/test_raw_json.py
 simplejson/tests/test_recursion.py
 simplejson/tests/test_scanstring.py
 simplejson/tests/test_separators.py
 simplejson/tests/test_speedups.py
+simplejson/tests/test_str_subclass.py
 simplejson/tests/test_subclass.py
 simplejson/tests/test_tool.py
 simplejson/tests/test_tuple.py

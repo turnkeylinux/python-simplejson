@@ -1,11 +1,11 @@
 # see git-dpm(1) from git-dpm package
-a236fe4ff484fbba9c65e84fd555cd46dc7227ed
-a236fe4ff484fbba9c65e84fd555cd46dc7227ed
-a236fe4ff484fbba9c65e84fd555cd46dc7227ed
-a236fe4ff484fbba9c65e84fd555cd46dc7227ed
-simplejson_3.8.2.orig.tar.gz
-bdc7526f83172210a2916ea433ecda782d0715de
-76578
+bde323c3b6be4d4a636c4050389953ba6d8cd260
+bde323c3b6be4d4a636c4050389953ba6d8cd260
+bde323c3b6be4d4a636c4050389953ba6d8cd260
+bde323c3b6be4d4a636c4050389953ba6d8cd260
+simplejson_3.10.0.orig.tar.gz
+dffc85c6851430578acf138c2a1193bc89a3eb0f
+77953
 debianTag="debian/%e%v"
 patchedTag="patched/%e%v"
 upstreamTag="upstream/%e%u"
