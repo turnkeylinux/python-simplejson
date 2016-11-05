@@ -1,6 +1,8 @@
 simplejson (3.10.0-1) unstable; urgency=medium
 
   * New upstream release
+  * Set documenation last change date to Debian's last change date to make the
+    build reproducible (Closes: #788596, thanks to Juan Picca for the patch)
 
  -- Piotr Ożarowski <piotr@debian.org>  Sat, 05 Nov 2016 21:50:41 +0100
 
