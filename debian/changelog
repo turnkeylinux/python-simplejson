@@ -1,6 +1,7 @@
 simplejson (3.11.1-1) unstable; urgency=medium
 
   * New upstream release
+  * Standards-Version bumped to 4.0.0 (no changes needed)
 
  -- Piotr Ożarowski <piotr@debian.org>  Thu, 22 Jun 2017 22:35:14 +0200
 
