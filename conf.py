@@ -36,15 +36,15 @@ master_doc = 'index'
 
 # General substitutions.
 project = 'simplejson'
-copyright = '2016, Bob Ippolito'
+copyright = '2017, Bob Ippolito'
 
 # The default replacements for |version| and |release|, also used in various
 # other places throughout the built documents.
 #
 # The short X.Y version.
-version = '3.10'
+version = '3.11'
 # The full version, including alpha/beta/rc tags.
-release = '3.10.0'
+release = '3.11.1'
 
 # There are two options for replacing |today|: either, you set today to some
 # non-false value, then it is used:
