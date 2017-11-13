@@ -12,7 +12,9 @@ simplejson/_speedups.c
 simplejson/compat.py
 simplejson/decoder.py
 simplejson/encoder.py
+simplejson/errors.py
 simplejson/ordered_dict.py
+simplejson/raw_json.py
 simplejson/scanner.py
 simplejson/tool.py
 simplejson.egg-info/PKG-INFO
