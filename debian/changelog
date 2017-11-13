@@ -2,6 +2,8 @@ simplejson (3.12.0-1) unstable; urgency=medium
 
   * New upstream release
   * Build depend on python3-sphinx instead of the Python 2.X one
+  * Standards-Version bumped to 4.1.1
+    - debian/copyright format URL now uses https
 
  -- Piotr Ożarowski <piotr@debian.org>  Mon, 13 Nov 2017 21:47:35 +0100
 
