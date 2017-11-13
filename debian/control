@@ -12,7 +12,6 @@ X-Python-Version: >= 2.6
 X-Python3-Version: >= 3.3
 Vcs-Git: https://anonscm.debian.org/git/python-modules/packages/simplejson.git
 Vcs-Browser: https://anonscm.debian.org/cgit/python-modules/packages/simplejson.git
-Testsuite: autopkgtest
 
 Package: python-simplejson
 Architecture: any
