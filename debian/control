@@ -39,7 +39,6 @@ Description: simple, fast, extensible JSON encoder/decoder for Python 2.x
 Package: python-simplejson-dbg
 Architecture: any
 Section: debug
-Priority: extra
 Depends: python-simplejson (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}
 Description: simple, fast, extensible JSON encoder/decoder for Python 2.x - debug symbols
  simplejson is a simple, fast, complete, correct and extensible JSON
@@ -81,7 +80,6 @@ Description: simple, fast, extensible JSON encoder/decoder for Python 3.x
 Package: python3-simplejson-dbg
 Architecture: any
 Section: debug
-Priority: extra
 Depends: python3-simplejson (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}, ${python3:Depends}
 Description: simple, fast, extensible JSON encoder/decoder for Python 3.x - debug symbols
  simplejson is a simple, fast, complete, correct and extensible JSON
@@ -103,7 +101,6 @@ Description: simple, fast, extensible JSON encoder/decoder for Python 3.x - debu
 Package: python-simplejson-doc
 Section: doc
 Architecture: all
-Priority: extra
 Depends: ${misc:Depends}, ${sphinxdoc:Depends}
 Recommends: python-simplejson
 Replaces: python-simplejson (<= 3)
