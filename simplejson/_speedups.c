@@ -680,7 +680,9 @@ encoder_stringify_key(PyEncoderObject *s, PyObject *key)
         Py_INCREF(Py_None);
         return Py_None;
     }
-    PyErr_SetString(PyExc_TypeError, "keys must be a string");
+    PyErr_Format(PyExc_TypeError,
+                 "keys must be str, int, float, bool or None, "
+                 "not %.100s", key->ob_type->tp_name);
     return NULL;
 }
 
@@ -692,7 +694,8 @@ encoder_dict_iteritems(PyEncoderObject *s, PyObject *dct)
     PyObject *lst = NULL;
     PyObject *item = NULL;
     PyObject *kstr = NULL;
-    static PyObject *sortfun = NULL;
+    PyObject *sortfun = NULL;
+    PyObject *sortres;
     static PyObject *sortargs = NULL;
 
     if (sortargs == NULL) {
@@ -763,8 +766,10 @@ encoder_dict_iteritems(PyEncoderObject *s, PyObject *dct)
     sortfun = PyObject_GetAttrString(lst, "sort");
     if (sortfun == NULL)
         goto bail;
-    if (!PyObject_Call(sortfun, sortargs, s->item_sort_kw))
+    sortres = PyObject_Call(sortfun, sortargs, s->item_sort_kw);
+    if (!sortres)
         goto bail;
+    Py_DECREF(sortres);
     Py_CLEAR(sortfun);
     iter = PyObject_GetIter(lst);
     Py_CLEAR(lst);
@@ -1355,7 +1360,8 @@ py_encode_basestring_ascii(PyObject* self UNUSED, PyObject *pystr)
 static void
 scanner_dealloc(PyObject *self)
 {
-    /* Deallocate scanner object */
+    /* bpo-31095: UnTrack is needed before calling any callbacks */
+    PyObject_GC_UnTrack(self);
     scanner_clear(self);
     Py_TYPE(self)->tp_free(self);
 }
@@ -2807,10 +2813,25 @@ static PyObject *
 encoder_encode_string(PyEncoderObject *s, PyObject *obj)
 {
     /* Return the JSON representation of a string */
-    if (s->fast_encode)
+    PyObject *encoded;
+
+    if (s->fast_encode) {
         return py_encode_basestring_ascii(NULL, obj);
-    else
-        return PyObject_CallFunctionObjArgs(s->encoder, obj, NULL);
+    }
+    encoded = PyObject_CallFunctionObjArgs(s->encoder, obj, NULL);
+    if (encoded != NULL &&
+#if PY_MAJOR_VERSION < 3
+        !JSON_ASCII_Check(encoded) &&
+#endif /* PY_MAJOR_VERSION < 3 */
+        !PyUnicode_Check(encoded))
+    {
+        PyErr_Format(PyExc_TypeError,
+                     "encoder() must return a string, not %.80s",
+                     Py_TYPE(encoded)->tp_name);
+        Py_DECREF(encoded);
+        return NULL;
+    }
+    return encoded;
 }
 
 static int
@@ -3205,7 +3226,8 @@ bail:
 static void
 encoder_dealloc(PyObject *self)
 {
-    /* Deallocate Encoder */
+    /* bpo-31095: UnTrack is needed before calling any callbacks */
+    PyObject_GC_UnTrack(self);
     encoder_clear(self);
     Py_TYPE(self)->tp_free(self);
 }
@@ -3335,10 +3357,11 @@ static struct PyModuleDef moduledef = {
 PyObject *
 import_dependency(char *module_name, char *attr_name)
 {
+    PyObject *rval;
     PyObject *module = PyImport_ImportModule(module_name);
     if (module == NULL)
         return NULL;
-    PyObject *rval = PyObject_GetAttrString(module, attr_name);
+    rval = PyObject_GetAttrString(module, attr_name);
     Py_DECREF(module);
     return rval;
 }

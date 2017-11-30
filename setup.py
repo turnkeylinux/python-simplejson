@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from __future__ import with_statement
 
+import os
 import sys
 try:
     from setuptools import setup, Extension, Command
@@ -11,7 +12,7 @@ from distutils.errors import CCompilerError, DistutilsExecError, \
     DistutilsPlatformError
 
 IS_PYPY = hasattr(sys, 'pypy_translation_info')
-VERSION = '3.12.0'
+VERSION = '3.13.2'
 DESCRIPTION = "Simple, fast, extensible JSON encoder/decoder for Python"
 
 with open('README.rst', 'r') as f:
@@ -112,6 +113,8 @@ def run_setup(with_binary):
 try:
     run_setup(not IS_PYPY)
 except BuildFailed:
+    if os.environ.get('REQUIRE_SPEEDUPS'):
+        raise
     BUILD_EXT_WARNING = ("WARNING: The C extension could not be compiled, "
                          "speedups are not enabled.")
     print('*' * 75)
