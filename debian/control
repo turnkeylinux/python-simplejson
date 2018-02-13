@@ -10,8 +10,8 @@ Build-Depends: debhelper (>= 9), python3-sphinx (>= 1.0.7+dfsg-1~), dh-python (>
 Homepage: https://simplejson.readthedocs.io/
 X-Python-Version: >= 2.6
 X-Python3-Version: >= 3.3
-Vcs-Git: https://anonscm.debian.org/git/python-modules/packages/simplejson.git
-Vcs-Browser: https://anonscm.debian.org/cgit/python-modules/packages/simplejson.git
+Vcs-Git: https://salsa.debian.org/python-team/modules/simplejson.git
+Vcs-Browser: https://salsa.debian.org/python-team/modules/simplejson
 
 Package: python-simplejson
 Architecture: any
