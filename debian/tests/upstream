@@ -1,9 +1,9 @@
 #!/bin/sh
 set -e
-if [ -z "$ADTTMP" ]
+if [ -z "$AUTOPKGTEST_TMP" ]
 then
     export ADTTMP=`mktemp -d`
 fi
-cp -r simplejson/tests $ADTTMP
-cd $ADTTMP
+cp -r simplejson/tests $AUTOPKGTEST_TMP
+cd $AUTOPKGTEST_TMP
 py.test -vs
