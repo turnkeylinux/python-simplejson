@@ -2,6 +2,7 @@ simplejson (3.13.2-2) UNRELEASED; urgency=medium
 
   * d/control: Set Vcs-* to salsa.debian.org
   * d/tests: Use AUTOPKGTEST_TMP instead of ADTTMP
+  * d/control: Remove ancient X-Python-Version field
 
  -- Ondřej Nový <onovy@debian.org>  Tue, 13 Feb 2018 10:00:02 +0100
 
