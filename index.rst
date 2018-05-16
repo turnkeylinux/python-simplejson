@@ -192,8 +192,16 @@ Basic Usage
    .. versionchanged:: 2.1.4
       Use ``(',', ': ')`` as default if *indent* is not ``None``.
 
-   *encoding* is the character encoding for str instances, default is
-   ``'utf-8'``.
+   If *encoding* is not ``None``, then all input :class:`bytes` objects in
+   Python 3 and 8-bit strings in Python 2 will be transformed
+   into unicode using that encoding prior to JSON-encoding.  The default is
+   ``'utf-8'``.  If *encoding* is ``None``, then all :class:`bytes` objects
+   will be passed to the *default* function in Python 3
+
+   .. versionchanged:: 3.15.0
+      ``encoding=None`` disables serializing :class:`bytes` by default in
+      Python 3.
+
 
    *default(obj)* is a function that should return a serializable version of
    *obj* or raise :exc:`TypeError`. The default simply raises :exc:`TypeError`.
@@ -656,9 +664,15 @@ Encoders and decoders
    that can't otherwise be serialized.  It should return a JSON encodable
    version of the object or raise a :exc:`TypeError`.
 
-   If *encoding* is not ``None``, then all input strings will be transformed
+   If *encoding* is not ``None``, then all input :class:`bytes` objects in
+   Python 3 and 8-bit strings in Python 2 will be transformed
    into unicode using that encoding prior to JSON-encoding.  The default is
-   ``'utf-8'``.
+   ``'utf-8'``.  If *encoding* is ``None``, then all :class:`bytes` objects
+   will be passed to the :meth:`default` method in Python 3
+
+   .. versionchanged:: 3.15.0
+      ``encoding=None`` disables serializing :class:`bytes` by default in
+      Python 3.
 
    If *namedtuple_as_object* is true (default: ``True``),
    objects with ``_asdict()`` methods will be encoded
@@ -766,6 +780,11 @@ Encoders and decoders
                               int_as_string_bitcount=None)
 
    Subclass of :class:`JSONEncoder` that escapes &, <, and > for embedding in HTML.
+
+   It also escapes the characters U+2028 (LINE SEPARATOR) and
+   U+2029 (PARAGRAPH SEPARATOR), irrespective of the *ensure_ascii* setting,
+   as these characters are not valid in JavaScript strings (see
+   http://timelessrepo.com/json-isnt-a-javascript-subset).
 
    .. versionchanged:: 2.1.0
       New in 2.1.0
