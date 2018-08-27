@@ -16,7 +16,7 @@ SPHINXOPTS := -D html_last_updated_fmt="$(BUILD_DATE)"
 build-indep:
 	dh_testdir
 	dh_installdirs
-	sphinx-build $(SPHINXOPTS) -N -q -E -b html . \
+	python3 -m sphinx $(SPHINXOPTS) -N -q -E -b html . \
 	 $(CURDIR)/debian/python-simplejson-doc/usr/share/doc/python-simplejson-doc/
 
 override_dh_sphinxdoc:
