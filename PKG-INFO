@@ -1,8 +1,8 @@
-Metadata-Version: 1.1
+Metadata-Version: 1.2
 Name: simplejson
-Version: 3.15.0
+Version: 3.16.0
 Summary: Simple, fast, extensible JSON encoder/decoder for Python
-Home-page: http://github.com/simplejson/simplejson
+Home-page: https://github.com/simplejson/simplejson
 Author: Bob Ippolito
 Author-email: bob@redivi.com
 License: MIT License
@@ -61,3 +61,4 @@ Classifier: Programming Language :: Python :: 3.6
 Classifier: Programming Language :: Python :: Implementation :: CPython
 Classifier: Programming Language :: Python :: Implementation :: PyPy
 Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=2.5, !=3.0.*, !=3.1.*, !=3.2.*
