@@ -5,7 +5,7 @@ Maintainer: Debian Python Modules Team <python-modules-team@lists.alioth.debian.
 Uploaders: Piotr Ożarowski <piotr@debian.org>
 Standards-Version: 4.4.0
 Build-Depends: debhelper-compat (= 9), python3-sphinx (>= 1.0.7+dfsg-1~), dh-python (>= 1.20130807),
- python-all-dev, python-all-dbg, pypy [amd64 i386],
+ python-all-dev, python-all-dbg,
  python3-all-dev, python3-all-dbg
 Homepage: https://simplejson.readthedocs.io/
 Vcs-Git: https://salsa.debian.org/python-team/modules/simplejson.git
@@ -118,23 +118,3 @@ Description: simple, fast, extensible JSON encoder/decoder for Python - document
  compatibility with Python 2.5.
  .
  This package contains documentation.
-
-Package: pypy-simplejson
-Architecture: all
-Depends: ${shlibs:Depends}, ${misc:Depends}, pypy
-Description: simple, fast, extensible JSON encoder/decoder for Python - PyPy
- simplejson is a simple, fast, complete, correct and extensible JSON
- <http://json.org> encoder and decoder.
- .
- The encoder may be subclassed to provide serialization in any kind of
- situation, without any special support by the objects to be serialized
- (somewhat like pickle).
- .
- The decoder can handle incoming JSON strings of any specified encoding
- (UTF-8 by default).
- .
- simplejson is the externally maintained development version of the json
- library included with Python 2.6 and Python 3.0, but maintains backwards
- compatibility with Python 2.5.
- .
- This package contains the PyPy module.

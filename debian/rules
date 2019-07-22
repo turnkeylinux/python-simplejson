@@ -4,14 +4,13 @@ export PYBUILD_DESTDIR_python2=debian/python-simplejson/
 export PYBUILD_DESTDIR_python2-dbg=debian/python-simplejson-dbg/
 export PYBUILD_DESTDIR_python3=debian/python3-simplejson/
 export PYBUILD_DESTDIR_python3-dbg=debian/python3-simplejson-dbg/
-export PYBUILD_DESTDIR_pypy=debian/pypy-simplejson/
 
 LAST_CHANGE = $(shell dpkg-parsechangelog -S Date)
 BUILD_DATE  = $(shell LC_ALL=C date -u "+%B %d, %Y" -d "$(LAST_CHANGE)")
 SPHINXOPTS := -D html_last_updated_fmt="$(BUILD_DATE)"
 
 %:
-	dh $@ --with python2,python3,pypy,sphinxdoc --buildsystem=pybuild
+	dh $@ --with python2,python3,sphinxdoc --buildsystem=pybuild
 
 build-indep:
 	dh_testdir
