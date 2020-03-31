@@ -57,36 +57,13 @@ def artifact_matcher(version):
     return matches
 
 
-def sign_artifacts(version):
-    artifacts = set(os.listdir('dist'))
-    matches = artifact_matcher(version)
-    passphrase = getpass.getpass('\nGPG Passphrase:')
-    for fn in artifacts:
-        if matches(fn) and '{}.asc'.format(fn) not in artifacts:
-            sign_artifact(os.path.join('dist', fn), passphrase)
-
-
-def sign_artifact(path, passphrase):
-    cmd = [
-        'gpg',
-        '--detach-sign',
-        '--batch',
-        '--passphrase-fd', '0',
-        '--armor',
-        path
-    ]
-    print(' '.join(cmd))
-    subprocess.run(cmd, check=True, input=passphrase, encoding='utf8')
-
-
 def upload_artifacts(version):
     artifacts = set(os.listdir('dist'))
     matches = artifact_matcher(version)
     args = ['twine', 'upload']
     for fn in artifacts:
         if matches(fn):
-            filename = os.path.join('dist', fn)
-            args.extend([filename, filename + '.asc'])
+            args.append(os.path.join('dist', fn))
     subprocess.check_call(args)
 
 
@@ -97,9 +74,7 @@ def main():
         pass
     download_appveyor_artifacts()
     download_github_artifacts()
-    version = get_version()
-    sign_artifacts(version)
-    upload_artifacts(version)
+    upload_artifacts(get_version())
 
 
 if __name__ == '__main__':
