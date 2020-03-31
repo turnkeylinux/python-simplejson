@@ -2,20 +2,31 @@ Source: simplejson
 Section: python
 Priority: optional
 Maintainer: Debian Python Modules Team <python-modules-team@lists.alioth.debian.org>
-Uploaders: Piotr Ożarowski <piotr@debian.org>
+Uploaders:
+ Piotr Ożarowski <piotr@debian.org>,
 Standards-Version: 4.4.1
-Build-Depends: debhelper-compat (= 12), python3-sphinx (>= 1.0.7+dfsg-1~), dh-python (>= 1.20130807),
- python-all-dev, python-all-dbg,
- python3-all-dev, python3-all-dbg
+Build-Depends:
+ debhelper-compat (= 12),
+ dh-python (>= 1.20130807),
+ python-all-dbg,
+ python-all-dev,
+ python3-all-dbg,
+ python3-all-dev,
+ python3-sphinx (>= 1.0.7+dfsg-1~),
 Homepage: https://simplejson.readthedocs.io/
 Vcs-Git: https://salsa.debian.org/python-team/modules/simplejson.git
 Vcs-Browser: https://salsa.debian.org/python-team/modules/simplejson
 
 Package: python-simplejson
 Architecture: any
-Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends}
-Breaks: ${python:Breaks}
-Provides: ${python:Provides}
+Depends:
+ ${misc:Depends},
+ ${python:Depends},
+ ${shlibs:Depends},
+Breaks:
+ ${python:Breaks},
+Provides:
+ ${python:Provides},
 Description: simple, fast, extensible JSON encoder/decoder for Python 2.x
  simplejson is a simple, fast, complete, correct and extensible JSON
  <http://json.org> encoder and decoder.
@@ -36,7 +47,11 @@ Description: simple, fast, extensible JSON encoder/decoder for Python 2.x
 Package: python-simplejson-dbg
 Architecture: any
 Section: debug
-Depends: python-simplejson (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}
+Depends:
+ python-simplejson (= ${binary:Version}),
+ ${misc:Depends},
+ ${python:Depends},
+ ${shlibs:Depends},
 Description: simple, fast, extensible JSON encoder/decoder for Python 2.x - debug symbols
  simplejson is a simple, fast, complete, correct and extensible JSON
  <http://json.org> encoder and decoder.
@@ -54,9 +69,41 @@ Description: simple, fast, extensible JSON encoder/decoder for Python 2.x - debu
  .
  This package contains the extension built for the Python 2 debug interpreter.
 
+Package: python-simplejson-doc
+Section: doc
+Architecture: all
+Depends:
+ ${misc:Depends},
+ ${sphinxdoc:Depends},
+Recommends:
+ python-simplejson,
+Replaces:
+ python-simplejson (<= 3),
+Breaks:
+ python-simplejson (<= 3),
+Description: simple, fast, extensible JSON encoder/decoder for Python - documentation
+ simplejson is a simple, fast, complete, correct and extensible JSON
+ <http://json.org> encoder and decoder.
+ .
+ The encoder may be subclassed to provide serialization in any kind of
+ situation, without any special support by the objects to be serialized
+ (somewhat like pickle).
+ .
+ The decoder can handle incoming JSON strings of any specified encoding
+ (UTF-8 by default).
+ .
+ simplejson is the externally maintained development version of the json
+ library included with Python 2.6 and Python 3.0, but maintains backwards
+ compatibility with Python 2.5.
+ .
+ This package contains documentation.
+
 Package: python3-simplejson
 Architecture: any
-Depends: ${python3:Depends}, ${shlibs:Depends}, ${misc:Depends}
+Depends:
+ ${misc:Depends},
+ ${python3:Depends},
+ ${shlibs:Depends},
 Description: simple, fast, extensible JSON encoder/decoder for Python 3.x
  simplejson is a simple, fast, complete, correct and extensible JSON
  <http://json.org> encoder and decoder.
@@ -77,7 +124,11 @@ Description: simple, fast, extensible JSON encoder/decoder for Python 3.x
 Package: python3-simplejson-dbg
 Architecture: any
 Section: debug
-Depends: python3-simplejson (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}, ${python3:Depends}
+Depends:
+ python3-simplejson (= ${binary:Version}),
+ ${misc:Depends},
+ ${python3:Depends},
+ ${shlibs:Depends},
 Description: simple, fast, extensible JSON encoder/decoder for Python 3.x - debug symbols
  simplejson is a simple, fast, complete, correct and extensible JSON
  <http://json.org> encoder and decoder.
@@ -94,27 +145,3 @@ Description: simple, fast, extensible JSON encoder/decoder for Python 3.x - debu
  compatibility with Python 2.5.
  .
  This package contains the extension built for the Python 3 debug interpreter.
-
-Package: python-simplejson-doc
-Section: doc
-Architecture: all
-Depends: ${misc:Depends}, ${sphinxdoc:Depends}
-Recommends: python-simplejson
-Replaces: python-simplejson (<= 3)
-Breaks: python-simplejson (<= 3)
-Description: simple, fast, extensible JSON encoder/decoder for Python - documentation
- simplejson is a simple, fast, complete, correct and extensible JSON
- <http://json.org> encoder and decoder.
- .
- The encoder may be subclassed to provide serialization in any kind of
- situation, without any special support by the objects to be serialized
- (somewhat like pickle).
- .
- The decoder can handle incoming JSON strings of any specified encoding
- (UTF-8 by default).
- .
- simplejson is the externally maintained development version of the json
- library included with Python 2.6 and Python 3.0, but maintains backwards
- compatibility with Python 2.5.
- .
- This package contains documentation.

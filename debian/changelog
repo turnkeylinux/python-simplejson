@@ -11,6 +11,7 @@ simplejson (3.17.0-1) experimental; urgency=medium
   [ Thomas Goirand ]
   * Team upload.
   * New upstream release.
+  * Ran wrap-and-sort -bastk.
 
  -- Thomas Goirand <zigo@debian.org>  Tue, 31 Mar 2020 14:41:58 +0200
 

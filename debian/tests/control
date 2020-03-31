@@ -1,5 +1,9 @@
 Tests: upstream
-Depends: @, python-pytest
+Depends:
+ python-pytest,
+ @,
 
 Tests: upstream-3
-Depends: @, python3-pytest
+Depends:
+ python3-pytest,
+ @,
