@@ -1,4 +1,4 @@
-simplejson (3.16.0-3) UNRELEASED; urgency=medium
+simplejson (3.17.0-1) experimental; urgency=medium
 
   [ Ondřej Nový ]
   * Bump Standards-Version to 4.4.1.
@@ -8,7 +8,11 @@ simplejson (3.16.0-3) UNRELEASED; urgency=medium
   * Set upstream metadata fields: Bug-Database, Bug-Submit, Repository,
     Repository-Browse.
 
- -- Ondřej Nový <onovy@debian.org>  Fri, 18 Oct 2019 15:53:41 +0200
+  [ Thomas Goirand ]
+  * Team upload.
+  * New upstream release.
+
+ -- Thomas Goirand <zigo@debian.org>  Tue, 31 Mar 2020 14:41:58 +0200
 
 simplejson (3.16.0-2) unstable; urgency=medium
 
