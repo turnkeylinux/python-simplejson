@@ -1,29 +1,33 @@
 Metadata-Version: 1.2
 Name: simplejson
-Version: 3.16.0
+Version: 3.17.0
 Summary: Simple, fast, extensible JSON encoder/decoder for Python
 Home-page: https://github.com/simplejson/simplejson
 Author: Bob Ippolito
 Author-email: bob@redivi.com
 License: MIT License
-Description-Content-Type: UNKNOWN
 Description: simplejson
         ----------
         
         .. image:: https://travis-ci.org/simplejson/simplejson.svg?branch=master
             :target: https://travis-ci.org/simplejson/simplejson
         
+        .. image:: https://ci.appveyor.com/api/projects/status/3riqhss6vca680gi/branch/master?svg=true
+            :target: https://ci.appveyor.com/project/etrepum/simplejson/branch/master
+        
         simplejson is a simple, fast, complete, correct and extensible
-        JSON <http://json.org> encoder and decoder for Python 2.5+
-        and Python 3.3+.  It is pure Python code with no dependencies,
-        but includes an optional C extension for a serious speed boost.
+        JSON <http://json.org> encoder and decoder for Python 3.3+
+        with legacy support for Python 2.5+.  It is pure Python code
+        with no dependencies, but includes an optional C extension
+        for a serious speed boost.
         
         The latest documentation for simplejson can be read online here:
         https://simplejson.readthedocs.io/
         
         simplejson is the externally maintained development version of the
-        json library included with Python 2.6 and Python 3.0, but maintains
-        backwards compatibility with Python 2.5.
+        json library included with Python (since 2.6). This version is tested
+        with the latest Python 3.8 and maintains backwards compatibility
+        with Python 3.3+ and the legacy Python 2.5 - Python 2.7 releases.
         
         The encoder can be specialized to provide serialization in any kind of
         situation, without any special support by the objects to be serialized
@@ -58,6 +62,7 @@ Classifier: Programming Language :: Python :: 3.3
 Classifier: Programming Language :: Python :: 3.4
 Classifier: Programming Language :: Python :: 3.5
 Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
 Classifier: Programming Language :: Python :: Implementation :: CPython
 Classifier: Programming Language :: Python :: Implementation :: PyPy
 Classifier: Topic :: Software Development :: Libraries :: Python Modules
