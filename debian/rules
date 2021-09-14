@@ -1,25 +1,16 @@
 #!/usr/bin/make -f
 
 export PYBUILD_DESTDIR_python2=debian/python-simplejson/
-export PYBUILD_DESTDIR_python2-dbg=debian/python-simplejson-dbg/
-export PYBUILD_DESTDIR_python3=debian/python3-simplejson/
-export PYBUILD_DESTDIR_python3-dbg=debian/python3-simplejson-dbg/
 
 LAST_CHANGE = $(shell dpkg-parsechangelog -S Date)
 BUILD_DATE  = $(shell LC_ALL=C date -u "+%B %d, %Y" -d "$(LAST_CHANGE)")
-SPHINXOPTS := -D html_last_updated_fmt="$(BUILD_DATE)"
 
 %:
-	dh $@ --with python2,python3,sphinxdoc --buildsystem=pybuild
+	dh $@ --with python2 --buildsystem=pybuild
 
 build-indep:
 	dh_testdir
 	dh_installdirs
-	python3 -m sphinx $(SPHINXOPTS) -N -q -E -b html . \
-	 $(CURDIR)/debian/python-simplejson-doc/usr/share/doc/python-simplejson-doc/
-
-override_dh_sphinxdoc:
-	dh_sphinxdoc -p python-simplejson-doc
 
 override_dh_strip:
 	dh_strip --no-automatic-dbgsym
