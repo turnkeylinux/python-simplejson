@@ -1,17 +1,15 @@
 Source: simplejson
 Section: python
 Priority: optional
-Maintainer: Debian Python Modules Team <python-modules-team@lists.alioth.debian.org>
-Uploaders:
- Piotr Ożarowski <piotr@debian.org>,
+Maintainer: Jeremy Davis <jeremy@turnkeylinux.org>
 Standards-Version: 4.4.1
 Build-Depends:
  dh-python (>= 1.20130807),
- python-all-dbg,
- python-all-dev,
+ python2.7-dbg,
+ python2.7-dev,
 Homepage: https://simplejson.readthedocs.io/
-Vcs-Git: https://salsa.debian.org/python-team/modules/simplejson.git
-Vcs-Browser: https://salsa.debian.org/python-team/modules/simplejson
+Vcs-Git: https://github.com/turnkeylinux/python-simplejson.git
+Vcs-Browser: https://github.com/turnkeylinux/python-simplejson
 
 Package: python-simplejson
 Architecture: any
