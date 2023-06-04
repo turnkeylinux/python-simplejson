@@ -4,9 +4,9 @@ Priority: optional
 Maintainer: Jeremy Davis <jeremy@turnkeylinux.org>
 Standards-Version: 4.4.1
 Build-Depends:
- dh-python (>= 1.20130807),
- python2.7-dbg,
- python2.7-dev,
+ dh-python2 (>= 4.20201102+turnkey0),
+ python-all-dbg,
+ python-all-dev,
 Homepage: https://simplejson.readthedocs.io/
 Vcs-Git: https://github.com/turnkeylinux/python-simplejson.git
 Vcs-Browser: https://github.com/turnkeylinux/python-simplejson
