@@ -1,6 +1,8 @@
 simplejson
 ----------
 
+NOTE: This is a TurnKey py2 fork - for use with TKLBAM
+
 .. image:: https://travis-ci.org/simplejson/simplejson.svg?branch=master
     :target: https://travis-ci.org/simplejson/simplejson
 
